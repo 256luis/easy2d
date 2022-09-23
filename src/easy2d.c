@@ -69,13 +69,13 @@ void e2d_init()
     window_count = 0;
 }
 
-e2d_Window* e2d_create_window(int width, int height, int resolution_width, int resolution_height, const char* title)
+e2d_Window* e2d_create_window(int client_width, int client_height, int resolution_width, int resolution_height, const char* title)
 {    
     // create the e2d_window
     e2d_Window* window = malloc(sizeof(e2d_Window));
     window->keep_running = true;
-    window->client_width = width;
-    window->client_height = height;
+    window->client_width = client_width;
+    window->client_height = client_height;
     window->resolution_width = resolution_width;
     window->resolution_height = resolution_height;
     
@@ -95,8 +95,8 @@ e2d_Window* e2d_create_window(int width, int height, int resolution_width, int r
 
     // get desired client rect
     RECT window_rect = {
-        .right = width,
-        .bottom = height
+        .right = client_width,
+        .bottom = client_height
     };
     AdjustWindowRect(&window_rect, WS_OVERLAPPEDWINDOW, false);
     int window_width = window_rect.right - window_rect.left; 
@@ -130,6 +130,9 @@ e2d_Window* e2d_create_window(int width, int height, int resolution_width, int r
     
     windows[window_count] = window;
     window_count++;
+
+    printf("%f\n", (float)resolution_width/client_width);
+    
     return window;
 }
 
