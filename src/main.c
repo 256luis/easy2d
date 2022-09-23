@@ -27,7 +27,7 @@ int main()
         e2d_handle_events();
         e2d_clear_framebuffer(window, 0);
 
-        printf("%d, %d\n", e2d_get_mouse_x(window), e2d_get_mouse_y(window));
+        //printf("%d, %d\n", e2d_get_mouse_x(window), e2d_get_mouse_y(window));
         
         e2d_draw_framebuffer(window);
     }

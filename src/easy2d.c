@@ -45,13 +45,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             window->keep_running = false;
         } break;
             
-        case WM_SIZE: {
-            // get new width and height
-            RECT client_rect;
-            GetClientRect(hwnd, &client_rect);
-            
-            window->client_width = client_rect.right - client_rect.left;
-            window->client_height = client_rect.bottom - client_rect.top;
+        case WM_SIZE: {            
+            window->client_width = LOWORD(lParam);
+            window->client_height = HIWORD(lParam);
+            printf("%d, %d\n", window->client_width, window->client_height);
         }
 
         case WM_MOUSEMOVE: {
