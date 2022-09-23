@@ -18,6 +18,8 @@ typedef struct e2d_Window
     bool keep_running;
     BITMAPINFO bitmap_info;
     HDC device_context;
+    int mouse_x;
+    int mouse_y;
 } e2d_Window;
 
 HINSTANCE hInstance;
@@ -42,15 +44,20 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_CLOSE: {
             window->keep_running = false;
         } break;
-
+            
         case WM_SIZE: {
             // get new width and height
             RECT client_rect;
             GetClientRect(hwnd, &client_rect);
-
+            
             window->client_width = client_rect.right - client_rect.left;
             window->client_height = client_rect.bottom - client_rect.top;
         }
+
+        case WM_MOUSEMOVE: {
+            window->mouse_x = LOWORD(lParam);
+            window->mouse_y = HIWORD(lParam);
+        }                     
             
         default: {
             return DefWindowProc(hwnd, uMsg, wParam, lParam);
@@ -130,8 +137,6 @@ e2d_Window* e2d_create_window(int client_width, int client_height, int resolutio
     
     windows[window_count] = window;
     window_count++;
-
-    printf("%f\n", (float)resolution_width/client_width);
     
     return window;
 }
@@ -161,6 +166,17 @@ void e2d_handle_events()
         DispatchMessage(&message);
     }
 }
+
+int e2d_get_mouse_x(e2d_Window* window)
+{
+    return window->mouse_x;
+}
+
+int e2d_get_mouse_y(e2d_Window* window)
+{
+    return window->mouse_y;
+}
+
 
 void e2d_set_pixel(e2d_Window* window, int x, int y, uint32_t color)
 {

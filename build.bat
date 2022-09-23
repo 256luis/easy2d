@@ -1,6 +1,6 @@
 @echo off
 
-set CC=tcc
+set CC=clang
 set CFLAGS=-c -O3 -I../include -std=c17 -pedantic -Wall -Wextra -Wno-deprecated-declarations
 set LFLAGS=-luser32 -lgdi32
 set SRC=%1
