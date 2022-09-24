@@ -22,11 +22,4 @@ typedef struct e2d_Window
     int mouse_y;
 } e2d_Window;
 
-extern HINSTANCE hInstance;
-extern PSTR pCmdLine;
-extern int nCmdShow;
-
-extern unsigned int window_count;
-extern e2d_Window* windows[100];
-
 #endif // EASY2D_INTERNALS_H
