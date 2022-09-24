@@ -18,7 +18,8 @@ echo -----------------------------
 
 if %errorlevel% == 0 (
     echo creating archive...
-    call ar rcs ../lib/libeasy2d.a *.o
+    if not exist ..\lib mkdir ..\lib
+    call ar rcs ../lib/libeasy2d.a *.o  
     echo done!
     echo -----------------------------
 )

@@ -18,6 +18,7 @@ echo -----------------------------
 
 if %errorlevel% == 0 (
     echo creating archive...
+    if not exist ..\lib mkdir ..\lib
     call llvm-ar rcs ../lib/easy2d.lib *.o
     echo done!
     echo -----------------------------
