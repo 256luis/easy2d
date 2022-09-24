@@ -48,7 +48,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             window->keep_running = false;
         } break;
 
-        case WM_SIZE: {            
+        case WM_SIZE: {
             window->client_width = GET_X_LPARAM(lParam);
             window->client_height = GET_Y_LPARAM(lParam);
             window->resolution_scale_width = (float)window->resolution_width / window->client_width;

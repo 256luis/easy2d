@@ -12,7 +12,7 @@
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
-#define SCALE 0.5
+#define SCALE 0.0625
 
 int main()
 {
@@ -31,6 +31,8 @@ int main()
         int x = e2d_get_mouse_x_in_framebuffer(window);
         int y = e2d_get_mouse_y_in_framebuffer(window);
 
+        e2d_set_pixel(window, x, y, 0xffffffff);
+        
         e2d_draw_framebuffer(window);
     }
     
