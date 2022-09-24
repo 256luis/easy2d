@@ -1,3 +1,5 @@
 *.exe
 *.o*
 src/main.c
+buildmain.bat
+lib/

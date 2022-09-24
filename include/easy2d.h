@@ -2,6 +2,7 @@
 #define EASY2D_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef struct e2d_Window e2d_Window;
 

@@ -17,8 +17,8 @@ echo done!
 echo -----------------------------
 
 if %errorlevel% == 0 (
-    echo linking...
-    call %CC% *.o -o ../main.exe %LFLAGS%
+    echo creating archive...
+    call llvm-ar rcs ../lib/easy2d.lib *.o
     echo done!
     echo -----------------------------
 )
