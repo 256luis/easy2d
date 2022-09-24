@@ -1,29 +1,6 @@
-#define WIN32_LEAN_AND_MEAN
-
-#include <stdint.h>
-#include <stdbool.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <windows.h>
 #include <windowsx.h>
-#include "easy2d.h"
-
-typedef struct e2d_Window
-{
-    int client_width;
-    int client_height;
-    int resolution_width;
-    int resolution_height;
-    float resolution_scale_width;
-    float resolution_scale_height;
-    uint32_t* framebuffer;
-    HWND window_handle;
-    bool keep_running;
-    BITMAPINFO bitmap_info;
-    HDC device_context;
-    int mouse_x;
-    int mouse_y;
-} e2d_Window;
+#include "easy2d_internals.h"
 
 HINSTANCE hInstance;
 PSTR pCmdLine;
@@ -68,7 +45,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     return 0;
 }
 
-// todo: this
 void e2d_init()
 {
     hInstance = GetModuleHandle(NULL);
@@ -159,75 +135,3 @@ bool e2d_should_window_close(e2d_Window* window)
     return !window->keep_running;
 }
 
-void e2d_handle_events()
-{
-    MSG message = { 0 };
-    while (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
-    {
-        TranslateMessage(&message);
-        DispatchMessage(&message);
-    }
-}
-
-int e2d_get_mouse_x(e2d_Window* window)
-{
-    return window->mouse_x;
-}
-
-int e2d_get_mouse_y(e2d_Window* window)
-{
-    return window->mouse_y;
-}
-
-int e2d_get_mouse_x_in_framebuffer(e2d_Window* window)
-{
-    return window->mouse_x * window->resolution_scale_width;    
-}
-
-int e2d_get_mouse_y_in_framebuffer(e2d_Window* window)
-{
-    return window->mouse_y * window->resolution_scale_height;        
-}
-
-void e2d_set_pixel(e2d_Window* window, int x, int y, uint32_t color)
-{
-    if (x < 0 || x >= window->resolution_width) return;
-    if (y < 0 || y >= window->resolution_height) return;
-
-    window->framebuffer[x + (y * window->resolution_width)] = color;
-}
-
-void e2d_clear_framebuffer(e2d_Window* window, uint32_t color)
-{
-    for (int i = 0; i < e2d_get_framebuffer_length(window); i++)
-    {
-        window->framebuffer[i] = color;
-    }
-}
-
-uint32_t* e2d_get_framebuffer_reference(e2d_Window* window)
-{
-    return window->framebuffer;
-}
-
-int e2d_get_framebuffer_length(e2d_Window* window)
-{
-    return window->resolution_width * window->resolution_height;
-}
-
-void e2d_draw_framebuffer(e2d_Window* window)
-{
-    StretchDIBits(
-        window->device_context,     // hdc
-        0, 0,                       // xDest, yDest
-        window->client_width,       // DestWidth
-        window->client_height,      // DestWidth
-        0, 0,                       // xSrc, ySrc
-        window->resolution_width,   // SrcWidth
-        window->resolution_height,  // SrcHeight
-        window->framebuffer,                // lpBits
-        &window->bitmap_info,       // lpBmi
-        DIB_RGB_COLORS,             // iUsage
-        SRCCOPY
-    );
-}
