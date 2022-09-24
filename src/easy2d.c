@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
+#include <windowsx.h>
 #include "easy2d.h"
 
 typedef struct e2d_Window
@@ -46,14 +47,14 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         } break;
             
         case WM_SIZE: {            
-            window->client_width = LOWORD(lParam);
-            window->client_height = HIWORD(lParam);
+            window->client_width = GET_X_LPARAM(lParam);
+            window->client_height = GET_Y_LPARAM(lParam);
             printf("%d, %d\n", window->client_width, window->client_height);
         }
 
         case WM_MOUSEMOVE: {
-            window->mouse_x = LOWORD(lParam);
-            window->mouse_y = HIWORD(lParam);
+            window->mouse_x = GET_X_LPARAM(lParam);
+            window->mouse_y = GET_Y_LPARAM(lParam);
         }                     
             
         default: {

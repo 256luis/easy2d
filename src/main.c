@@ -11,13 +11,13 @@
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
-#define SCALE 0.25
-
-#define WIDTH (WINDOW_WIDTH * SCALE)
-#define HEIGHT (WINDOW_HEIGHT * SCALE)
+#define SCALE 0.02
 
 int main()
 {
+    const int WIDTH = WINDOW_WIDTH * SCALE;
+    const int HEIGHT = WINDOW_HEIGHT * SCALE;
+    
     e2d_init();
     e2d_Window* window = e2d_create_window(WINDOW_WIDTH, WINDOW_HEIGHT, WIDTH, HEIGHT, "window!");
     e2d_show_window(window);
@@ -27,7 +27,7 @@ int main()
         e2d_handle_events();
         e2d_clear_framebuffer(window, 0);
 
-        //printf("%d, %d\n", e2d_get_mouse_x(window), e2d_get_mouse_y(window));
+        e2d_set_pixel(window, WIDTH/2, HEIGHT/2, 0xffffffff);
         
         e2d_draw_framebuffer(window);
     }
