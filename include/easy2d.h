@@ -9,7 +9,6 @@ typedef struct e2d_Window e2d_Window;
 void e2d_init();
 e2d_Window* e2d_create_window(int client_width, int client_height, int resolution_width, int resolution_height, const char* title);
 void e2d_destroy_window(e2d_Window* window);
-void e2d_show_window(e2d_Window* window);
 bool e2d_should_window_close(e2d_Window* window);
 
 void e2d_handle_events();

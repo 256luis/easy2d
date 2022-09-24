@@ -115,6 +115,8 @@ e2d_Window* e2d_create_window(int client_width, int client_height, int resolutio
     
     windows[window_count] = window;
     window_count++;
+
+    ShowWindow(window->window_handle, nCmdShow);
     
     return window;
 }
@@ -123,11 +125,6 @@ void e2d_destroy_window(e2d_Window* window)
 {
     free(window->framebuffer);
     free(window);
-}
-
-void e2d_show_window(e2d_Window* window)
-{
-    ShowWindow(window->window_handle, nCmdShow);
 }
 
 bool e2d_should_window_close(e2d_Window* window)
