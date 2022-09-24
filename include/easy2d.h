@@ -1,6 +1,8 @@
 #ifndef EASY2D_H
 #define EASY2D_H
 
+#include <stdint.h>
+
 typedef struct e2d_Window e2d_Window;
 
 void e2d_init();
@@ -12,6 +14,8 @@ bool e2d_should_window_close(e2d_Window* window);
 void e2d_handle_events();
 int e2d_get_mouse_x(e2d_Window* window);
 int e2d_get_mouse_y(e2d_Window* window);
+int e2d_get_mouse_x_in_framebuffer(e2d_Window* window);
+int e2d_get_mouse_y_in_framebuffer(e2d_Window* window);
 
 void e2d_set_pixel(e2d_Window* window, int x, int y, uint32_t color);
 void e2d_clear_framebuffer(e2d_Window* window, uint32_t color);

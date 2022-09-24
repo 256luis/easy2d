@@ -14,6 +14,8 @@ typedef struct e2d_Window
     int client_height;
     int resolution_width;
     int resolution_height;
+    float resolution_scale_width;
+    float resolution_scale_height;
     uint32_t* framebuffer;
     HWND window_handle;
     bool keep_running;
@@ -45,10 +47,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_CLOSE: {
             window->keep_running = false;
         } break;
-            
+
         case WM_SIZE: {            
             window->client_width = GET_X_LPARAM(lParam);
             window->client_height = GET_Y_LPARAM(lParam);
+            window->resolution_scale_width = (float)window->resolution_width / window->client_width;
+            window->resolution_scale_height = (float)window->resolution_height / window->client_height;    
         } break;
 
         case WM_MOUSEMOVE: {
@@ -82,7 +86,9 @@ e2d_Window* e2d_create_window(int client_width, int client_height, int resolutio
     window->client_height = client_height;
     window->resolution_width = resolution_width;
     window->resolution_height = resolution_height;
-
+    window->resolution_scale_width = (float)resolution_width / client_width;
+    window->resolution_scale_height = (float)resolution_height / client_height;
+    
     // allocate framebuffer
     window->framebuffer = malloc(resolution_width * resolution_height * sizeof(uint32_t));
 
@@ -171,6 +177,16 @@ int e2d_get_mouse_x(e2d_Window* window)
 int e2d_get_mouse_y(e2d_Window* window)
 {
     return window->mouse_y;
+}
+
+int e2d_get_mouse_x_in_framebuffer(e2d_Window* window)
+{
+    return window->mouse_x * window->resolution_scale_width;    
+}
+
+int e2d_get_mouse_y_in_framebuffer(e2d_Window* window)
+{
+    return window->mouse_y * window->resolution_scale_height;        
 }
 
 void e2d_set_pixel(e2d_Window* window, int x, int y, uint32_t color)
