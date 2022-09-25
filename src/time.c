@@ -30,6 +30,7 @@ double e2d_get_time()
 void e2d_set_target_framerate(int target_framerate)
 {
     target_delta_time =  (1000.0 / target_framerate) / 1000;
+    time_now = e2d_get_time() - target_delta_time;
 }
 
 void e2d_update_time()
