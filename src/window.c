@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <windowsx.h>
+#include <stdlib.h>
 #include "easy2d_internals.h"
 
 HINSTANCE hInstance;
@@ -26,15 +26,15 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         } break;
 
         case WM_SIZE: {
-            window->client_width = GET_X_LPARAM(lParam);
-            window->client_height = GET_Y_LPARAM(lParam);
+            window->client_width = LOWORD(lParam);
+            window->client_height = HIWORD(lParam);
             window->resolution_scale_width = (float)window->resolution_width / window->client_width;
             window->resolution_scale_height = (float)window->resolution_height / window->client_height;    
         } break;
 
         case WM_MOUSEMOVE: {
-            window->mouse_x = GET_X_LPARAM(lParam);
-            window->mouse_y = GET_Y_LPARAM(lParam);
+            window->mouse_x = LOWORD(lParam);
+            window->mouse_y = HIWORD(lParam);
         } break;
             
         default: {
