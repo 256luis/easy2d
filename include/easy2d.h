@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#define E2D_COLOR(R, G, B, A) ((uint32_t)((((uint8_t)(A)) << 24) | (((uint8_t)(R)) << 16) | (((uint8_t)(G)) << 8) | (((uint8_t)(B)) << 0)))
+
 typedef struct e2d_Window e2d_Window;
 
 void e2d_init();
