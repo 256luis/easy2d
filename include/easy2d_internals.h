@@ -22,4 +22,6 @@ typedef struct e2d_Window
     int mouse_y;
 } e2d_Window;
 
+void internal_time_init();
+
 #endif // EASY2D_INTERNALS_H

@@ -7,6 +7,7 @@
 typedef struct e2d_Window e2d_Window;
 
 void e2d_init();
+void e2d_close();
 e2d_Window* e2d_create_window(int client_width, int client_height, int resolution_width, int resolution_height, const char* title);
 void e2d_destroy_window(e2d_Window* window);
 bool e2d_should_window_close(e2d_Window* window);
@@ -22,5 +23,11 @@ int e2d_get_framebuffer_length(e2d_Window* window);
 void e2d_clear_framebuffer(e2d_Window* window, uint32_t color);
 void e2d_draw_framebuffer(e2d_Window* window);
 uint32_t* e2d_get_framebuffer_reference(e2d_Window* window);
+
+void e2d_update_time();
+double e2d_get_time();
+double e2d_get_delta_time();
+void e2d_set_target_framerate(int target_framerate);
+void e2d_limit_framerate();
 
 #endif // EASY2D_H

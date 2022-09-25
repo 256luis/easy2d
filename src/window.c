@@ -51,6 +51,13 @@ void e2d_init()
     pCmdLine = GetCommandLine();
     nCmdShow = SW_SHOW;
     window_count = 0;
+
+    internal_time_init();
+}
+
+void e2d_close()
+{
+    timeEndPeriod(1);
 }
 
 e2d_Window* e2d_create_window(int client_width, int client_height, int resolution_width, int resolution_height, const char* title)
