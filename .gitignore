@@ -1,6 +1,6 @@
 *.exe
 *.o*
-src/main.c
+main.c
 buildmain.bat
 buildall.bat
 lib/
