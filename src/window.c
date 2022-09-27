@@ -9,42 +9,6 @@ int nCmdShow;
 unsigned int window_count;
 e2d_Window* windows[100];
 
-static
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
-    // identify which window called the window procedure
-    char class_name[5];
-    GetClassName(hwnd, class_name, 5);
-    int window_id = atoi(class_name);
-    e2d_Window* window = windows[window_id];
-    
-    switch (uMsg)
-    {
-        case WM_DESTROY:
-        case WM_CLOSE: {
-            window->keep_running = false;
-        } break;
-
-        case WM_SIZE: {
-            window->client_width = LOWORD(lParam);
-            window->client_height = HIWORD(lParam);
-            window->resolution_scale_width = (float)window->resolution_width / window->client_width;
-            window->resolution_scale_height = (float)window->resolution_height / window->client_height;    
-        } break;
-
-        case WM_MOUSEMOVE: {
-            window->mouse_x = LOWORD(lParam);
-            window->mouse_y = HIWORD(lParam);
-        } break;
-            
-        default: {
-            return DefWindowProc(hwnd, uMsg, wParam, lParam);
-        }
-    }
-
-    return 0;
-}
-
 void e2d_init()
 {
     hInstance = GetModuleHandle(NULL);
