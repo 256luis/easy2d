@@ -15,6 +15,7 @@ typedef struct e2d_Window
 
     int mouse_x;
     int mouse_y;
+    uint8_t mouse_state;
     
     float resolution_scale_width;
     float resolution_scale_height;

@@ -1,4 +1,12 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "easy2d_internals.h"
+#include "easy2d.h"
+
+#define SET_BIT(bit_field, index) bit_field |= 1 << (index)
+#define UNSET_BIT(bit_field, index) bit_field &= ~(1 << (index))
+#define TOGGLE_BIT(bit_field, index) bit_field ^= 1 << (index)
+#define GET_BIT(bit_field, index) ((bit_field) & (1 << (index)))
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -26,7 +34,24 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             window->mouse_x = LOWORD(lParam);
             window->mouse_y = HIWORD(lParam);
         } break;
-            
+
+        case WM_LBUTTONDOWN: { SET_BIT(window->mouse_state, E2D_LMB); } break;
+        case WM_LBUTTONUP: { UNSET_BIT(window->mouse_state, E2D_LMB); } break;
+        
+        case WM_RBUTTONDOWN: { SET_BIT(window->mouse_state, E2D_RMB); } break;
+        case WM_RBUTTONUP: { UNSET_BIT(window->mouse_state, E2D_RMB); } break;
+        
+        case WM_MBUTTONDOWN: { SET_BIT(window->mouse_state, E2D_MMB); } break;
+        case WM_MBUTTONUP: { UNSET_BIT(window->mouse_state, E2D_MMB); } break;
+
+        case WM_MOUSEWHEEL: {
+            union
+            {
+                uint16_t u;
+                int16_t s;
+            } delta = { HIWORD(wParam) };
+        } break;
+        
         default: {
             return DefWindowProc(hwnd, uMsg, wParam, lParam);
         }
