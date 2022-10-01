@@ -93,6 +93,11 @@ e2d_Window* e2d_create_window(int client_width, int client_height, int resolutio
     return window;
 }
 
+void e2d_set_window_title(e2d_Window* window, const char* title)
+{
+    SetWindowText(window->window_handle, title);
+}
+
 void e2d_destroy_window(e2d_Window* window)
 {
     free(window->framebuffer);
