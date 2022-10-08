@@ -89,3 +89,8 @@ int e2d_get_mouse_y_in_framebuffer(e2d_Window* window)
 {
     return window->mouse_y * window->resolution_scale_height;        
 }
+
+bool e2d_is_mouse_down(e2d_Window* window, e2d_MouseButton mouse_button)
+{
+    return GET_BIT(window->mouse_state, mouse_button);
+}
