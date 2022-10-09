@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <windows.h>
+#include "easy2d.h"
 
 typedef struct e2d_Window
 {
@@ -15,7 +16,9 @@ typedef struct e2d_Window
 
     int mouse_x;
     int mouse_y;
-    uint8_t mouse_state;
+    uint8_t mouse_down_state     : E2D_MOUSEBUTTON_COUNT;
+    uint8_t mouse_pressed_state  : E2D_MOUSEBUTTON_COUNT;
+    uint8_t mouse_released_state : E2D_MOUSEBUTTON_COUNT;
     
     float resolution_scale_width;
     float resolution_scale_height;

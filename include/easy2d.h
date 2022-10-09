@@ -10,7 +10,8 @@ typedef struct e2d_Window e2d_Window;
 
 typedef enum e2d_MouseButton
 {
-    E2D_LMB, E2D_RMB, E2D_MMB
+    E2D_LMB, E2D_RMB, E2D_MMB,
+    E2D_MOUSEBUTTON_COUNT
 } e2d_MouseButton;
 
 void e2d_init();
@@ -26,6 +27,8 @@ int e2d_get_mouse_y(e2d_Window* window);
 int e2d_get_mouse_x_in_framebuffer(e2d_Window* window);
 int e2d_get_mouse_y_in_framebuffer(e2d_Window* window);
 bool e2d_is_mouse_down(e2d_Window* window, e2d_MouseButton mouse_button);
+bool e2d_is_mouse_pressed(e2d_Window* window, e2d_MouseButton mouse_button);
+bool e2d_is_mouse_released(e2d_Window* window, e2d_MouseButton mouse_button);
 
 void e2d_set_pixel(e2d_Window* window, int x, int y, uint32_t color);
 int e2d_get_framebuffer_length(e2d_Window* window);

@@ -35,7 +35,9 @@ e2d_Window* e2d_create_window(int client_width, int client_height, int resolutio
     window->resolution_height = resolution_height;
     window->resolution_scale_width = (float)resolution_width / client_width;
     window->resolution_scale_height = (float)resolution_height / client_height;
-    window->mouse_state = 0;
+    window->mouse_down_state = 0;
+    window->mouse_pressed_state = 0;
+    window->mouse_released_state = 0;
     
     // allocate framebuffer
     window->framebuffer = malloc(resolution_width * resolution_height * sizeof(uint32_t));

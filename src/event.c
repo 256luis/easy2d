@@ -35,14 +35,35 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             window->mouse_y = HIWORD(lParam);
         } break;
 
-        case WM_LBUTTONDOWN: { SET_BIT(window->mouse_state, E2D_LMB); } break;
-        case WM_LBUTTONUP: { UNSET_BIT(window->mouse_state, E2D_LMB); } break;
+        case WM_LBUTTONDOWN: {
+            SET_BIT(window->mouse_down_state, E2D_LMB);
+            SET_BIT(window->mouse_pressed_state, E2D_LMB);
+        } break;
+
+        case WM_LBUTTONUP: {
+            UNSET_BIT(window->mouse_down_state, E2D_LMB);
+            SET_BIT(window->mouse_released_state, E2D_LMB);
+        } break;
         
-        case WM_RBUTTONDOWN: { SET_BIT(window->mouse_state, E2D_RMB); } break;
-        case WM_RBUTTONUP: { UNSET_BIT(window->mouse_state, E2D_RMB); } break;
+        case WM_RBUTTONDOWN: {
+            SET_BIT(window->mouse_down_state, E2D_RMB);
+            SET_BIT(window->mouse_pressed_state, E2D_RMB);
+        } break;
+
+        case WM_RBUTTONUP: {
+            UNSET_BIT(window->mouse_down_state, E2D_RMB);
+            SET_BIT(window->mouse_released_state, E2D_RMB);
+        } break;
         
-        case WM_MBUTTONDOWN: { SET_BIT(window->mouse_state, E2D_MMB); } break;
-        case WM_MBUTTONUP: { UNSET_BIT(window->mouse_state, E2D_MMB); } break;
+        case WM_MBUTTONDOWN: {
+            SET_BIT(window->mouse_down_state, E2D_MMB);
+            SET_BIT(window->mouse_pressed_state, E2D_MMB);
+        } break;
+
+        case WM_MBUTTONUP: {
+            UNSET_BIT(window->mouse_down_state, E2D_MMB);
+            SET_BIT(window->mouse_released_state, E2D_MMB);
+        } break;
 
         case WM_MOUSEWHEEL: {
             union
@@ -62,6 +83,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 void e2d_handle_events()
 {
+    for (int i = 0; i < window_count; i++)
+    {
+        windows[i]->mouse_pressed_state = 0;
+        windows[i]->mouse_released_state = 0;
+    }
+
     MSG message = { 0 };
     while (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
     {
@@ -92,5 +119,15 @@ int e2d_get_mouse_y_in_framebuffer(e2d_Window* window)
 
 bool e2d_is_mouse_down(e2d_Window* window, e2d_MouseButton mouse_button)
 {
-    return GET_BIT(window->mouse_state, mouse_button);
+    return GET_BIT(window->mouse_down_state, mouse_button);
+}
+
+bool e2d_is_mouse_pressed(e2d_Window* window, e2d_MouseButton mouse_button)
+{
+    return GET_BIT(window->mouse_pressed_state, mouse_button);
+}
+
+bool e2d_is_mouse_released(e2d_Window* window, e2d_MouseButton mouse_button)
+{
+    return GET_BIT(window->mouse_released_state, mouse_button);
 }
