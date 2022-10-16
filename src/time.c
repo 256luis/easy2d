@@ -10,6 +10,8 @@ double time_now;
 double time_prev;
 double delta_time;
 
+double e2d_get_time();
+
 void internal_time_init()
 {
     timeBeginPeriod(1);
@@ -18,6 +20,7 @@ void internal_time_init()
     LARGE_INTEGER freq;
     QueryPerformanceFrequency(&freq);
     performance_frequency =  freq.QuadPart;
+    time_now = e2d_get_time();
 }
 
 double e2d_get_time()
