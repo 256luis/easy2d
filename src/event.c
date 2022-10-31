@@ -66,11 +66,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         } break;
 
         case WM_MOUSEWHEEL: {
-            union
-            {
-                uint16_t u;
-                int16_t s;
-            } delta = { HIWORD(wParam) };
+            window->mouse_wheel_delta = GET_WHEEL_DELTA_WPARAM(wParam) / 120;
         } break;
         
         default: {
@@ -87,6 +83,7 @@ void e2d_handle_events()
     {
         windows[i]->mouse_pressed_state = 0;
         windows[i]->mouse_released_state = 0;
+        windows[i]->mouse_wheel_delta = 0;
     }
 
     MSG message = { 0 };
@@ -115,6 +112,11 @@ int e2d_get_mouse_x_in_framebuffer(e2d_Window* window)
 int e2d_get_mouse_y_in_framebuffer(e2d_Window* window)
 {
     return window->mouse_y * window->resolution_scale_height;        
+}
+
+int e2d_get_mouse_wheel_delta(e2d_Window* window)
+{
+    return window->mouse_wheel_delta;
 }
 
 bool e2d_is_mouse_down(e2d_Window* window, e2d_MouseButton mouse_button)

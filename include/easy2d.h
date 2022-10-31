@@ -26,6 +26,7 @@ int e2d_get_mouse_x(e2d_Window* window);
 int e2d_get_mouse_y(e2d_Window* window);
 int e2d_get_mouse_x_in_framebuffer(e2d_Window* window);
 int e2d_get_mouse_y_in_framebuffer(e2d_Window* window);
+int e2d_get_mouse_wheel_delta(e2d_Window* window);
 bool e2d_is_mouse_down(e2d_Window* window, e2d_MouseButton mouse_button);
 bool e2d_is_mouse_pressed(e2d_Window* window, e2d_MouseButton mouse_button);
 bool e2d_is_mouse_released(e2d_Window* window, e2d_MouseButton mouse_button);
