@@ -1,12 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "easy2d_internals.h"
 #include "easy2d.h"
-
-#define SET_BIT(bit_field, index) bit_field |= 1 << (index)
-#define UNSET_BIT(bit_field, index) bit_field &= ~(1 << (index))
-#define TOGGLE_BIT(bit_field, index) bit_field ^= 1 << (index)
-#define GET_BIT(bit_field, index) ((bit_field) & (1 << (index)))
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -36,33 +32,33 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         } break;
 
         case WM_LBUTTONDOWN: {
-            SET_BIT(window->mouse_down_state, E2D_LMB);
-            SET_BIT(window->mouse_pressed_state, E2D_LMB);
+            window->mouse_down_state[E2D_LMB] = true;
+            window->mouse_pressed_state[E2D_LMB] = true;
         } break;
 
         case WM_LBUTTONUP: {
-            UNSET_BIT(window->mouse_down_state, E2D_LMB);
-            SET_BIT(window->mouse_released_state, E2D_LMB);
+            window->mouse_down_state[E2D_LMB] = false;
+            window->mouse_released_state[E2D_LMB] = true;
         } break;
         
         case WM_RBUTTONDOWN: {
-            SET_BIT(window->mouse_down_state, E2D_RMB);
-            SET_BIT(window->mouse_pressed_state, E2D_RMB);
+            window->mouse_down_state[E2D_RMB] = true;
+            window->mouse_pressed_state[E2D_RMB] = true;
         } break;
 
         case WM_RBUTTONUP: {
-            UNSET_BIT(window->mouse_down_state, E2D_RMB);
-            SET_BIT(window->mouse_released_state, E2D_RMB);
+            window->mouse_down_state[E2D_RMB] = false;
+            window->mouse_released_state[E2D_RMB] = true;
         } break;
         
         case WM_MBUTTONDOWN: {
-            SET_BIT(window->mouse_down_state, E2D_MMB);
-            SET_BIT(window->mouse_pressed_state, E2D_MMB);
+            window->mouse_down_state[E2D_MMB] = true;
+            window->mouse_pressed_state[E2D_MMB] = true;
         } break;
 
         case WM_MBUTTONUP: {
-            UNSET_BIT(window->mouse_down_state, E2D_MMB);
-            SET_BIT(window->mouse_released_state, E2D_MMB);
+            window->mouse_down_state[E2D_MMB] = false;
+            window->mouse_released_state[E2D_MMB] = true;
         } break;
 
         case WM_MOUSEWHEEL: {
@@ -81,8 +77,9 @@ void e2d_handle_events()
 {
     for (int i = 0; i < window_count; i++)
     {
-        windows[i]->mouse_pressed_state = 0;
-        windows[i]->mouse_released_state = 0;
+        memset(windows[i]->mouse_pressed_state, 0, E2D_MOUSEBUTTON_COUNT * sizeof(bool));
+        memset(windows[i]->mouse_released_state, 0, E2D_MOUSEBUTTON_COUNT * sizeof(bool));
+        
         windows[i]->mouse_wheel_delta = 0;
     }
 
@@ -121,15 +118,15 @@ int e2d_get_mouse_wheel_delta(e2d_Window* window)
 
 bool e2d_is_mouse_down(e2d_Window* window, e2d_MouseButton mouse_button)
 {
-    return GET_BIT(window->mouse_down_state, mouse_button);
+    return window->mouse_down_state[mouse_button];
 }
 
 bool e2d_is_mouse_pressed(e2d_Window* window, e2d_MouseButton mouse_button)
 {
-    return GET_BIT(window->mouse_pressed_state, mouse_button);
+    return window->mouse_pressed_state[mouse_button];
 }
 
 bool e2d_is_mouse_released(e2d_Window* window, e2d_MouseButton mouse_button)
 {
-    return GET_BIT(window->mouse_released_state, mouse_button);
+    return window->mouse_released_state[mouse_button];
 }

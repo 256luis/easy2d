@@ -17,9 +17,9 @@ typedef struct e2d_Window
     int mouse_x;
     int mouse_y;
     int mouse_wheel_delta;
-    uint8_t mouse_down_state     : E2D_MOUSEBUTTON_COUNT;
-    uint8_t mouse_pressed_state  : E2D_MOUSEBUTTON_COUNT;
-    uint8_t mouse_released_state : E2D_MOUSEBUTTON_COUNT;
+    bool mouse_down_state[E2D_MOUSEBUTTON_COUNT];
+    bool mouse_pressed_state[E2D_MOUSEBUTTON_COUNT];
+    bool mouse_released_state[E2D_MOUSEBUTTON_COUNT];
     
     float resolution_scale_width;
     float resolution_scale_height;

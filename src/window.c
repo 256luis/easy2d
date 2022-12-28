@@ -27,7 +27,7 @@ void e2d_close()
 e2d_Window* e2d_create_window(int client_width, int client_height, int resolution_width, int resolution_height, const char* title)
 {    
     // create the e2d_window
-    e2d_Window* window = malloc(sizeof(e2d_Window));
+    e2d_Window* window = calloc(1, sizeof(e2d_Window));
     window->keep_running = true;
     window->client_width = client_width;
     window->client_height = client_height;
@@ -35,9 +35,6 @@ e2d_Window* e2d_create_window(int client_width, int client_height, int resolutio
     window->resolution_height = resolution_height;
     window->resolution_scale_width = (float)resolution_width / client_width;
     window->resolution_scale_height = (float)resolution_height / client_height;
-    window->mouse_down_state = 0;
-    window->mouse_pressed_state = 0;
-    window->mouse_released_state = 0;
     
     // allocate framebuffer
     window->framebuffer = malloc(resolution_width * resolution_height * sizeof(uint32_t));
