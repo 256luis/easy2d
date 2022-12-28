@@ -66,7 +66,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         } break;
 
         case WM_MOUSEWHEEL: {
-            window->mouse_wheel_delta = GET_WHEEL_DELTA_WPARAM(wParam) / 120;
+            window->mouse_wheel_delta += GET_WHEEL_DELTA_WPARAM(wParam) / 120;
         } break;
         
         default: {
