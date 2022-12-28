@@ -17,6 +17,7 @@ void e2d_init()
     window_count = 0;
 
     internal_time_init();
+    vk_to_e2d_lut_init();
 }
 
 void e2d_close()
