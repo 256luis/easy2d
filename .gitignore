@@ -4,3 +4,4 @@ main.c
 buildmain.bat
 buildall.bat
 lib/
+lake.yaml
