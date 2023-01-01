@@ -4,9 +4,30 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define E2D_COLOR(R, G, B, A) ((uint32_t)((((uint8_t)(A)) << 24) | (((uint8_t)(R)) << 16) | (((uint8_t)(G)) << 8) | (((uint8_t)(B)) << 0)))
+#define E2D_BLACK     ((e2d_Color){  0,   0,   0, 255})
+#define E2D_WHITE     ((e2d_Color){255, 255, 255, 255})
+#define E2D_RED       ((e2d_Color){255,   0,   0, 255})
+#define E2D_ORANGE    ((e2d_Color){255, 128,   0, 255})
+#define E2D_YELLOW    ((e2d_Color){255, 255,   0, 255})
+#define E2D_LIME      ((e2d_Color){128, 255,   0, 255})
+#define E2D_GREEN     ((e2d_Color){  0, 255,   0, 255})
+#define E2D_TEAL      ((e2d_Color){  0, 255, 128, 255})
+#define E2D_CYAN      ((e2d_Color){  0, 255, 255, 255})
+#define E2D_LIGHTBLUE ((e2d_Color){  0, 128, 255, 255})
+#define E2D_BLUE      ((e2d_Color){  0,   0, 255, 255})
+#define E2D_PURPLE    ((e2d_Color){127,   0, 255, 255})
+#define E2D_MAGENTA   ((e2d_Color){255,   0, 255, 255})
+#define E2D_PINK      ((e2d_Color){255,   0, 127, 255})
 
 typedef struct e2d_Window e2d_Window;
+
+typedef struct e2d_Color
+{
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+    uint8_t a;
+} e2d_Color;
 
 typedef enum e2d_MouseButton
 {
@@ -83,9 +104,9 @@ bool e2d_is_key_down(e2d_Window* window, e2d_Key key);
 bool e2d_is_key_pressed(e2d_Window* window, e2d_Key key);
 bool e2d_is_key_released(e2d_Window* window, e2d_Key key);
 
-void e2d_set_pixel(e2d_Window* window, int x, int y, uint32_t color);
+void e2d_set_pixel(e2d_Window* window, int x, int y, e2d_Color color);
 int e2d_get_framebuffer_length(e2d_Window* window);
-void e2d_clear_framebuffer(e2d_Window* window, uint32_t color);
+void e2d_clear_framebuffer(e2d_Window* window, e2d_Color color);
 void e2d_draw_framebuffer(e2d_Window* window);
 uint32_t* e2d_get_framebuffer_reference(e2d_Window* window);
 
