@@ -173,7 +173,6 @@ void e2d_handle_events()
     // reset at start of each frame
     for (int i = 0; i < window_count; i++)
     {
-        memset(windows[i]->mouse_down_state,     0, E2D_MOUSEBUTTON_COUNT * sizeof(bool));
         memset(windows[i]->mouse_pressed_state,  0, E2D_MOUSEBUTTON_COUNT * sizeof(bool));
         memset(windows[i]->mouse_released_state, 0, E2D_MOUSEBUTTON_COUNT * sizeof(bool));
 
