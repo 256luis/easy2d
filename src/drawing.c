@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "easy2d_internals.h"     
 
 static inline
@@ -12,11 +13,6 @@ uint32_t e2d_color_to_hex(e2d_Color color)
     return hex;
 }
 
-int e2d_get_framebuffer_length(e2d_Window* window)
-{
-    return window->resolution_width * window->resolution_height;
-}
-
 void e2d_set_pixel(e2d_Window* window, int x, int y, e2d_Color color)
 {
     if (x < 0 || x >= window->resolution_width) return;
@@ -26,6 +22,16 @@ void e2d_set_pixel(e2d_Window* window, int x, int y, e2d_Color color)
     window->framebuffer[x + (y * window->resolution_width)] = hex;
 }
 
+int e2d_get_framebuffer_length(e2d_Window* window)
+{
+    return window->resolution_width * window->resolution_height;
+}
+
+uint32_t* e2d_get_framebuffer_reference(e2d_Window* window)
+{
+    return window->framebuffer;
+}
+
 void e2d_clear_framebuffer(e2d_Window* window, e2d_Color color)
 {
     uint32_t hex = e2d_color_to_hex(color);
@@ -33,11 +39,6 @@ void e2d_clear_framebuffer(e2d_Window* window, e2d_Color color)
     {
         window->framebuffer[i] = hex;
     }
-}
-
-uint32_t* e2d_get_framebuffer_reference(e2d_Window* window)
-{
-    return window->framebuffer;
 }
 
 void e2d_draw_framebuffer(e2d_Window* window)

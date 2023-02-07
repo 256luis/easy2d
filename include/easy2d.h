@@ -106,9 +106,9 @@ bool e2d_is_key_released(e2d_Window* window, e2d_Key key);
 
 void e2d_set_pixel(e2d_Window* window, int x, int y, e2d_Color color);
 int e2d_get_framebuffer_length(e2d_Window* window);
+uint32_t* e2d_get_framebuffer_reference(e2d_Window* window);
 void e2d_clear_framebuffer(e2d_Window* window, e2d_Color color);
 void e2d_draw_framebuffer(e2d_Window* window);
-uint32_t* e2d_get_framebuffer_reference(e2d_Window* window);
 
 void e2d_update_time();
 double e2d_get_time();
