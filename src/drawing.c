@@ -23,6 +23,40 @@ void e2d_set_pixel(e2d_Window* window, int x, int y, e2d_Color color)
     window->framebuffer[x + (y * window->resolution_width)] = hex;
 }
 
+static
+void draw_horizontal_line(e2d_Window* window, int x1, int x2, int y, e2d_Color color)
+{
+    // so we only go from left to right
+    if (x1 > x2)
+    {
+        int temp = x1;
+        x1 = x2;
+        x2 = temp;
+    }
+
+    for (int x = x1; x < x2; x++)
+    {
+        e2d_set_pixel(window, x, y, color);
+    }
+}
+
+static
+void draw_vertical_line(e2d_Window* window, int x, int y1, int y2, e2d_Color color)
+{
+    // so we only go from top to bottom
+    if (y1 > y2)
+    {
+        int temp = y1;
+        y1 = y2;
+        y2 = temp;
+    }
+
+    for (int y = y1; y < y2; y++)
+    {
+        e2d_set_pixel(window, x, y, color);
+    }
+}
+
 // NOTE: this is a NAIVE line drawing algorithm
 //       it may be slow because of floating point operations
 // TODO: implement bresenham's line drawing algorithm
@@ -30,6 +64,18 @@ void e2d_draw_line(e2d_Window* window, int x1, int y1, int x2, int y2, e2d_Color
 {
     int dx = x2 - x1;
     int dy = y2 - y1;
+    
+    if (dy == 0)
+    {
+        draw_horizontal_line(window, x1, x2, y1, color);
+        return;
+    }
+
+    if (dx == 0)
+    {
+        draw_vertical_line(window, x1, y1, y2, color);
+        return;
+    }
     
     // if more horizontal than vertical
     if (abs(dx) > abs(dy))
