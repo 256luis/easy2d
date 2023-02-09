@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 #include "easy2d_internals.h"     
 
 static inline
@@ -20,6 +21,71 @@ void e2d_set_pixel(e2d_Window* window, int x, int y, e2d_Color color)
 
     uint32_t hex = e2d_color_to_hex(color);
     window->framebuffer[x + (y * window->resolution_width)] = hex;
+}
+
+// NOTE: this is a NAIVE line drawing algorithm
+//       it may be slow because of floating point operations
+// TODO: implement bresenham's line drawing algorithm
+void e2d_draw_line(e2d_Window* window, int x1, int y1, int x2, int y2, e2d_Color color)
+{
+    int dx = x2 - x1;
+    int dy = y2 - y1;
+    
+    // if more horizontal than vertical
+    if (abs(dx) > abs(dy))
+    {
+        float slope = (float)dy / dx;
+        
+        // so we only go from left to right
+        if (x1 > x2)
+        {
+            int temp = x1;
+            x1 = x2;
+            x2 = temp;
+
+            temp = y1;
+            y1 = y2;
+            y2 = temp;
+        }
+
+        // iterate over all columns
+        int x = x1;
+        float y = y1;
+        while (x < x2)
+        {
+            e2d_set_pixel(window, x, y, color);
+            
+            x++;
+            y += slope;
+        }
+    }
+    else
+    {
+        float slope = (float)dx / dy;
+        
+        // so we only go from top to bottom
+        if (y1 > y2)
+        {
+            int temp = x1;
+            x1 = x2;
+            x2 = temp;
+
+            temp = y1;
+            y1 = y2;
+            y2 = temp;
+        }
+
+        // iterate over all rows
+        float x = x1;
+        int y = y1;
+        while (y < y2)
+        {
+            e2d_set_pixel(window, x, y, color);
+            
+            x += slope;
+            y++;
+        }
+    }
 }
 
 int e2d_get_framebuffer_length(e2d_Window* window)
