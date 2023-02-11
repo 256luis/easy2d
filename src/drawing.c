@@ -134,6 +134,17 @@ void e2d_draw_line(e2d_Window* window, int x1, int y1, int x2, int y2, e2d_Color
     }
 }
 
+void e2d_draw_rect_lines(e2d_Window* window, int x, int y, int width, int height, e2d_Color color)
+{
+    // top and bottom sides
+    draw_horizontal_line(window, x, x + width, y, color);
+    draw_horizontal_line(window, x, x + width, y + height - 1, color);
+
+    // left and right sides
+    draw_vertical_line(window, x, y, y + height, color);
+    draw_vertical_line(window, x + width - 1, y, y + height, color);
+}
+
 int e2d_get_framebuffer_length(e2d_Window* window)
 {
     return window->resolution_width * window->resolution_height;
