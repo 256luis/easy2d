@@ -145,6 +145,17 @@ void e2d_draw_rect_lines(e2d_Window* window, int x, int y, int width, int height
     draw_vertical_line(window, x + width - 1, y, y + height, color);
 }
 
+void e2d_draw_rect_fill(e2d_Window* window, int x, int y, int width, int height, e2d_Color color)
+{
+    for (int row = y; row < y + height; row++)
+    {
+        for (int col = x; col < x + width; col++)
+        {
+            e2d_set_pixel(window, col, row, color);
+        }
+    }
+}
+
 int e2d_get_framebuffer_length(e2d_Window* window)
 {
     return window->resolution_width * window->resolution_height;
