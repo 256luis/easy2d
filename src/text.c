@@ -826,28 +826,34 @@ bool chars[][CHAR_COUNT] = {
     },
 };
 
-void e2d_draw_text(e2d_Window* window, const char* text, int x, int y, e2d_Color color)
+void e2d_draw_char(e2d_Window* window, char c, int x, int y, e2d_Color color)
+{
+    for (int row = 0; row < TEXT_HEIGHT; row++)
+    {
+        for (int col = 0; col < TEXT_WIDTH; col++)
+        {
+            if (chars[c][col + (row * TEXT_WIDTH)])
+            {
+                e2d_set_pixel(window, col + x, row + y, color);
+            }
+        }
+    }    
+}
+
+void e2d_draw_string(e2d_Window* window, const char* s, int x, int y, e2d_Color color)
 {
     int cursor_x = x;
     int cursor_y = y;
-    for (/* nothing here */; *text != 0; text++)
+    for (/* nothing here */; *s != 0; s++)
     {
-        if (*text == '\n')
+        if (*s == '\n')
         {
             cursor_y += TEXT_HEIGHT;
             cursor_x = x;
             continue;
         }
         
-        for (int row = 0; row < TEXT_HEIGHT; row++)
-        {
-            for (int col = 0; col < TEXT_WIDTH; col++)
-            {
-                if (chars[*text][col + (row * TEXT_WIDTH)])
-                    e2d_set_pixel(window, col + cursor_x, row + cursor_y, color);
-            }
-        }
-
+        e2d_draw_char(window, *s, cursor_x, cursor_y, color);
         cursor_x += TEXT_WIDTH;
     }
 }

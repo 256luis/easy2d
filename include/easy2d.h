@@ -114,7 +114,8 @@ uint32_t* e2d_get_framebuffer_reference(e2d_Window* window);
 void e2d_clear_framebuffer(e2d_Window* window, e2d_Color color);
 void e2d_draw_framebuffer(e2d_Window* window);
 
-void e2d_draw_text(e2d_Window* window, const char* text, int x, int y, e2d_Color color);
+void e2d_draw_char(e2d_Window* window, char c, int x, int y, e2d_Color color);
+void e2d_draw_string(e2d_Window* window, const char* s, int x, int y, e2d_Color color);
 
 void e2d_update_time();
 double e2d_get_time();
