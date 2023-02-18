@@ -1,12 +1,15 @@
 #include <stdbool.h>
+#include <ctype.h>
+#include <stdio.h>
 #include "easy2d.h"
 
 #define CHAR_HEIGHT 11
 #define CHAR_WIDTH 6
 #define CHAR_DIMENSIONS (CHAR_HEIGHT*CHAR_WIDTH)
+#define CHAR_OFFSET ' '
 
 bool chars[][CHAR_DIMENSIONS] = {    
-    [' '] = {        
+    [' ' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -20,7 +23,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
 
-    ['!'] = {
+    ['!' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 1, 0, 0, 0,
         0, 0, 1, 0, 0, 0,
@@ -34,7 +37,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['"'] = {
+    ['"' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 1, 0, 1, 0, 0,
         0, 1, 0, 1, 0, 0,
@@ -48,7 +51,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['#'] = {
+    ['#' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 1, 0, 1, 0, 0,
         1, 1, 1, 1, 1, 0,
@@ -62,7 +65,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['$'] = {
+    ['$' - CHAR_OFFSET] = {
         0, 0, 1, 0, 0, 0,
         0, 1, 1, 1, 0, 0,
         1, 0, 1, 0, 1, 0,
@@ -76,7 +79,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['&'] = {
+    ['&' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 1, 0, 0, 0, 0,
         1, 0, 1, 0, 0, 0,
@@ -90,7 +93,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['\''] = {
+    ['\'' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 1, 0, 0, 0,
         0, 0, 1, 0, 0, 0,
@@ -104,7 +107,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['('] = {
+    ['(' - CHAR_OFFSET] = {
         0, 0, 1, 1, 1, 0,
         0, 1, 0, 0, 0, 0,
         1, 0, 0, 0, 0, 0,
@@ -118,7 +121,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    [')'] = {
+    [')' - CHAR_OFFSET] = {
         1, 1, 1, 0, 0, 0,
         0, 0, 0, 1, 0, 0,
         0, 0, 0, 0, 1, 0,
@@ -132,7 +135,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['*'] = {
+    ['*' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 1, 0, 1, 0, 0,
         0, 0, 1, 0, 0, 0,
@@ -146,7 +149,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['+'] = {
+    ['+' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 1, 0, 0, 0,
@@ -160,7 +163,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    [','] = {
+    [',' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -174,7 +177,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['-'] = {
+    ['-' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -188,7 +191,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['.'] = {
+    ['.' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -202,7 +205,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['/'] = {
+    ['/' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 1, 0,
         0, 0, 0, 0, 1, 0,
@@ -216,7 +219,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
     
-    [':'] = {
+    [':' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -230,7 +233,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
     
-    [';'] = {
+    [';' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -244,7 +247,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['<'] = {
+    ['<' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 1, 0, 0,
@@ -258,7 +261,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['='] = {
+    ['=' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -272,7 +275,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['>'] = {
+    ['>' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 1, 0, 0, 0, 0,
@@ -286,7 +289,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['?'] = {
+    ['?' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 1, 1, 1, 0, 0,
         1, 0, 0, 0, 1, 0,
@@ -300,7 +303,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['@'] = {
+    ['@' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 1, 1, 1, 0, 0,
         1, 0, 0, 0, 1, 0,
@@ -314,7 +317,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['0'] = {
+    ['0' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 1, 1, 1, 0, 0,
         1, 0, 0, 0, 1, 0,
@@ -328,7 +331,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['1'] = {
+    ['1' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 1, 0, 0, 0,
         0, 1, 1, 0, 0, 0,
@@ -342,7 +345,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['2'] = {
+    ['2' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 1, 1, 1, 0, 0,
         1, 0, 0, 0, 1, 0,
@@ -356,7 +359,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['3'] = {
+    ['3' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 1, 1, 1, 0, 0,
         1, 0, 0, 0, 1, 0,
@@ -370,7 +373,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['4'] = {
+    ['4' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 1, 0, 0,
         0, 0, 1, 1, 0, 0,
@@ -384,7 +387,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['5'] = {
+    ['5' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 1, 1, 1, 1, 0,
         1, 0, 0, 0, 0, 0,
@@ -398,7 +401,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['6'] = {
+    ['6' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 1, 1, 1, 0, 0,
         1, 0, 0, 0, 1, 0,
@@ -412,7 +415,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['7'] = {
+    ['7' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 1, 1, 1, 1, 0,
         0, 0, 0, 0, 1, 0,
@@ -426,7 +429,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['8'] = {
+    ['8' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 1, 1, 1, 0, 0,
         1, 0, 0, 0, 1, 0,
@@ -440,7 +443,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['9'] = {
+    ['9' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 1, 1, 1, 0, 0,
         1, 0, 0, 0, 1, 0,
@@ -454,7 +457,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['A'] = {
+    ['A' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 1, 1, 1, 0, 0,
         1, 0, 0, 0, 1, 0,
@@ -468,7 +471,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['B'] = {
+    ['B' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 1, 1, 1, 0, 0,
         1, 0, 0, 0, 1, 0,
@@ -482,7 +485,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['C'] = {
+    ['C' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 1, 1, 1, 1, 0,
         1, 0, 0, 0, 0, 0,
@@ -496,7 +499,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['D'] = {
+    ['D' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 1, 1, 1, 0, 0,
         1, 0, 0, 0, 1, 0,
@@ -510,7 +513,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['E'] = {
+    ['E' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 1, 1, 1, 1, 0,
         1, 0, 0, 0, 0, 0,
@@ -524,7 +527,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['F'] = {
+    ['F' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 1, 1, 1, 1, 0,
         1, 0, 0, 0, 0, 0,
@@ -538,7 +541,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['G'] = {
+    ['G' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 1, 1, 1, 0, 0,
         1, 0, 0, 0, 0, 0,
@@ -552,7 +555,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['H'] = {
+    ['H' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 1, 0,
         1, 0, 0, 0, 1, 0,
@@ -566,7 +569,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['I'] = {
+    ['I' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 1, 1, 1, 1, 0,
         0, 0, 1, 0, 0, 0,
@@ -580,7 +583,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['J'] = {
+    ['J' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 1, 1, 1, 0,
         0, 0, 0, 0, 1, 0,
@@ -594,7 +597,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['K'] = {
+    ['K' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 1, 0,
         1, 0, 0, 1, 0, 0,
@@ -608,7 +611,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['L'] = {
+    ['L' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 0, 0,
@@ -622,7 +625,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['M'] = {
+    ['M' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 1, 0,
         1, 1, 0, 1, 1, 0,
@@ -636,7 +639,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['N'] = {
+    ['N' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 1, 0, 0, 1, 0,
         1, 1, 0, 0, 1, 0,
@@ -650,7 +653,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['O'] = {
+    ['O' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 1, 1, 1, 0, 0,
         1, 0, 0, 0, 1, 0,
@@ -664,7 +667,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['P'] = {
+    ['P' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 1, 1, 1, 0, 0,
         1, 0, 0, 0, 1, 0,
@@ -678,7 +681,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['Q'] = {
+    ['Q' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 1, 1, 1, 0, 0,
         1, 0, 0, 0, 1, 0,
@@ -692,7 +695,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['R'] = {
+    ['R' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 1, 1, 1, 0, 0,
         1, 0, 0, 0, 1, 0,
@@ -706,7 +709,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['S'] = {
+    ['S' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 1, 1, 1, 0, 0,
         1, 0, 0, 0, 1, 0,
@@ -720,7 +723,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['T'] = {
+    ['T' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 1, 1, 1, 1, 0,
         0, 0, 1, 0, 0, 0,
@@ -734,7 +737,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['U'] = {
+    ['U' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 1, 0,
         1, 0, 0, 0, 1, 0,
@@ -748,7 +751,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['V'] = {
+    ['V' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 1, 0,
         1, 0, 0, 0, 1, 0,
@@ -762,7 +765,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['W'] = {
+    ['W' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 1, 0,
         1, 0, 0, 0, 1, 0,
@@ -776,7 +779,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['X'] = {
+    ['X' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 1, 0,
         1, 0, 0, 0, 1, 0,
@@ -790,7 +793,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['Y'] = {
+    ['Y' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 1, 0,
         1, 0, 0, 0, 1, 0,
@@ -804,7 +807,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['Z'] = {
+    ['Z' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 1, 1, 1, 1, 0,
         0, 0, 0, 0, 1, 0,
@@ -818,7 +821,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['['] = {
+    ['[' - CHAR_OFFSET] = {
         0, 1, 1, 1, 1, 0,
         0, 1, 0, 0, 0, 0,
         0, 1, 0, 0, 0, 0,
@@ -832,7 +835,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['\\'] = {
+    ['\\' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 0, 0,
@@ -846,7 +849,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    [']'] = {
+    [']' - CHAR_OFFSET] = {
         1, 1, 1, 1, 0, 0,
         0, 0, 0, 1, 0, 0,
         0, 0, 0, 1, 0, 0,
@@ -860,7 +863,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['^'] = {
+    ['^' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 1, 0, 0, 0,
         0, 1, 0, 1, 0, 0,
@@ -874,7 +877,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['_'] = {
+    ['_' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -888,7 +891,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['`'] = {
+    ['`' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 1, 0, 0, 0,
         0, 0, 0, 1, 0, 0,
@@ -902,7 +905,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
     
-    ['a'] = {
+    ['a' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -916,7 +919,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,
     },
     
-    ['b'] = {
+    ['b' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 0, 0,
@@ -930,7 +933,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
 
-    ['c'] = {
+    ['c' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 
         0, 0, 0, 0, 0, 0,
@@ -944,7 +947,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,
     },
     
-    ['d'] = {
+    ['d' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 1, 0,
         0, 0, 0, 0, 1, 0,
@@ -958,7 +961,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0        
     },
     
-    ['e'] = {
+    ['e' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 
         0, 0, 0, 0, 0, 0,
@@ -972,7 +975,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
 
-    ['f'] = {
+    ['f' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 1, 1, 1, 0,
         0, 1, 0, 0, 0, 0,
@@ -986,7 +989,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
 
-    ['g'] = {        
+    ['g' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -1000,7 +1003,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
 
-    ['h'] = {        
+    ['h' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 0, 0,
@@ -1014,7 +1017,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
     
-    ['i'] = {        
+    ['i' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 1, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -1028,7 +1031,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
     
-    ['j'] = {        
+    ['j' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 1, 0,
         0, 0, 0, 0, 0, 0,
@@ -1042,7 +1045,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
     
-    ['k'] = {        
+    ['k' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 0, 0,
         1, 0, 0, 0, 0, 0,
@@ -1056,7 +1059,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
     
-    ['l'] = {        
+    ['l' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         1, 1, 1, 0, 0, 0,
         0, 0, 1, 0, 0, 0,
@@ -1070,7 +1073,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
 
-    ['m'] = {        
+    ['m' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -1084,7 +1087,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
 
-    ['n'] = {        
+    ['n' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -1098,7 +1101,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
 
-    ['o'] = {        
+    ['o' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -1112,7 +1115,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
     
-    ['p'] = {        
+    ['p' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -1126,7 +1129,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
     
-    ['q'] = {        
+    ['q' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -1140,7 +1143,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
 
-    ['r'] = {        
+    ['r' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -1154,7 +1157,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
     
-    ['s'] = {        
+    ['s' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -1168,7 +1171,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
 
-    ['t'] = {        
+    ['t' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 1, 0, 0, 0,
         0, 0, 1, 0, 0, 0,
@@ -1182,7 +1185,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
 
-    ['u'] = {        
+    ['u' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -1196,7 +1199,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
 
-    ['v'] = {        
+    ['v' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -1210,7 +1213,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
 
-    ['w'] = {        
+    ['w' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -1224,7 +1227,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
 
-    ['x'] = {        
+    ['x' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -1238,7 +1241,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
 
-    ['y'] = {        
+    ['y' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -1252,7 +1255,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
 
-    ['z'] = {        
+    ['z' - CHAR_OFFSET] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -1266,7 +1269,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0
     },
 
-    ['{'] = {
+    ['{' - CHAR_OFFSET] = {
         0, 0, 1, 1, 1, 0,
         0, 1, 0, 0, 0, 0,
         0, 1, 0, 0, 0, 0,
@@ -1280,7 +1283,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['|'] = {
+    ['|' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 1, 0, 0, 0,
         0, 0, 1, 0, 0, 0,
@@ -1294,7 +1297,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['}'] = {
+    ['}' - CHAR_OFFSET] = {
         1, 1, 1, 0, 0, 0,
         0, 0, 0, 1, 0, 0,
         0, 0, 0, 1, 0, 0,
@@ -1308,7 +1311,7 @@ bool chars[][CHAR_DIMENSIONS] = {
         0, 0, 0, 0, 0, 0,        
     },
 
-    ['~'] = {
+    ['~' - CHAR_OFFSET] = {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -1324,18 +1327,49 @@ bool chars[][CHAR_DIMENSIONS] = {
 
 };
 
+bool unprintable[] = {
+    1, 1, 1, 1, 1, 1,
+    1, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 1,
+    1, 1, 1, 1, 1, 1,            
+};
+
 void e2d_draw_char(e2d_Window* window, char c, int x, int y, e2d_Color color)
 {
+    if (!isprint(c))
+    {
+        // should i write a function for this?
+        for (int row = 0; row < CHAR_HEIGHT; row++)
+        {
+            for (int col = 0; col < CHAR_WIDTH; col++)
+            {
+                if (unprintable[col + (row * CHAR_WIDTH)])
+                {
+                    e2d_set_pixel(window, col + x, row + y, color);
+                }
+            }
+        }
+        return;
+    }
+
+    // because this is the same thing as the one above
     for (int row = 0; row < CHAR_HEIGHT; row++)
     {
         for (int col = 0; col < CHAR_WIDTH; col++)
         {
-            if (chars[c][col + (row * CHAR_WIDTH)])
+            if (chars[c - CHAR_OFFSET][col + (row * CHAR_WIDTH)])
             {
                 e2d_set_pixel(window, col + x, row + y, color);
             }
         }
-    }    
+    }
 }
 
 void e2d_draw_string(e2d_Window* window, const char* s, int x, int y, e2d_Color color)
@@ -1344,6 +1378,7 @@ void e2d_draw_string(e2d_Window* window, const char* s, int x, int y, e2d_Color 
     int cursor_y = y;
     for (/* nothing here */; *s != 0; s++)
     {
+        // if newline
         if (*s == '\n')
         {
             cursor_y += CHAR_HEIGHT;
@@ -1354,4 +1389,16 @@ void e2d_draw_string(e2d_Window* window, const char* s, int x, int y, e2d_Color 
         e2d_draw_char(window, *s, cursor_x, cursor_y, color);
         cursor_x += CHAR_WIDTH;
     }
+
+    printf("%llu\n", sizeof(chars)/CHAR_DIMENSIONS);
+}
+
+int e2d_get_char_width()
+{
+    return CHAR_WIDTH;
+}
+
+int e2d_get_char_height()
+{
+    return CHAR_HEIGHT;
 }
