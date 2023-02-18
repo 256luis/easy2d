@@ -1,11 +1,11 @@
 #include <stdbool.h>
 #include "easy2d.h"
 
-#define TEXT_HEIGHT 11
-#define TEXT_WIDTH 6
-#define CHAR_COUNT 127
+#define CHAR_HEIGHT 11
+#define CHAR_WIDTH 6
+#define CHAR_DIMENSIONS (CHAR_HEIGHT*CHAR_WIDTH)
 
-bool chars[][CHAR_COUNT] = {    
+bool chars[][CHAR_DIMENSIONS] = {    
     [' '] = {        
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0,
@@ -1326,11 +1326,11 @@ bool chars[][CHAR_COUNT] = {
 
 void e2d_draw_char(e2d_Window* window, char c, int x, int y, e2d_Color color)
 {
-    for (int row = 0; row < TEXT_HEIGHT; row++)
+    for (int row = 0; row < CHAR_HEIGHT; row++)
     {
-        for (int col = 0; col < TEXT_WIDTH; col++)
+        for (int col = 0; col < CHAR_WIDTH; col++)
         {
-            if (chars[c][col + (row * TEXT_WIDTH)])
+            if (chars[c][col + (row * CHAR_WIDTH)])
             {
                 e2d_set_pixel(window, col + x, row + y, color);
             }
@@ -1346,12 +1346,12 @@ void e2d_draw_string(e2d_Window* window, const char* s, int x, int y, e2d_Color 
     {
         if (*s == '\n')
         {
-            cursor_y += TEXT_HEIGHT;
+            cursor_y += CHAR_HEIGHT;
             cursor_x = x;
             continue;
         }
         
         e2d_draw_char(window, *s, cursor_x, cursor_y, color);
-        cursor_x += TEXT_WIDTH;
+        cursor_x += CHAR_WIDTH;
     }
 }
