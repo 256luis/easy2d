@@ -108,10 +108,14 @@ void e2d_set_pixel(e2d_Window* window, int x, int y, e2d_Color color);
 void e2d_draw_line(e2d_Window* window, int x1, int y1, int x2, int y2, e2d_Color color);
 void e2d_draw_rect_lines(e2d_Window* window, int x, int y, int width, int height, e2d_Color color);
 void e2d_draw_rect_fill(e2d_Window* window, int x, int y, int width, int height, e2d_Color color);
+void e2d_draw_triangle_lines(e2d_Window* window, int x1, int y1, int x2, int y2, int x3, int y3, e2d_Color color);
 int e2d_get_framebuffer_length(e2d_Window* window);
 uint32_t* e2d_get_framebuffer_reference(e2d_Window* window);
 void e2d_clear_framebuffer(e2d_Window* window, e2d_Color color);
 void e2d_draw_framebuffer(e2d_Window* window);
+
+void e2d_draw_char(e2d_Window* window, char c, int x, int y, e2d_Color color);
+void e2d_draw_string(e2d_Window* window, const char* s, int x, int y, e2d_Color color);
 
 void e2d_update_time();
 double e2d_get_time();

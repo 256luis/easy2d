@@ -156,6 +156,17 @@ void e2d_draw_rect_fill(e2d_Window* window, int x, int y, int width, int height,
     }
 }
 
+void e2d_draw_triangle_lines(e2d_Window* window,
+                             int x1, int y1,
+                             int x2, int y2,
+                             int x3, int y3,
+                             e2d_Color color)
+{   
+    e2d_draw_line(window, x1, y1, x2, y2, color);
+    e2d_draw_line(window, x2, y2, x3, y3, color);
+    e2d_draw_line(window, x3, y3, x1, y1, color);
+}
+
 int e2d_get_framebuffer_length(e2d_Window* window)
 {
     return window->resolution_width * window->resolution_height;
