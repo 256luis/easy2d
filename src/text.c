@@ -1,6 +1,5 @@
 #include <stdbool.h>
 #include <ctype.h>
-#include <stdio.h>
 #include "easy2d.h"
 
 #define CHAR_HEIGHT 11
@@ -1389,8 +1388,6 @@ void e2d_draw_string(e2d_Window* window, const char* s, int x, int y, e2d_Color 
         e2d_draw_char(window, *s, cursor_x, cursor_y, color);
         cursor_x += CHAR_WIDTH;
     }
-
-    printf("%llu\n", sizeof(chars)/CHAR_DIMENSIONS);
 }
 
 int e2d_get_char_width()
