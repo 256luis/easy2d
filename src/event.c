@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <windows.h>
 #include "easy2d_internals.h"
 #include "easy2d.h"
 
@@ -118,7 +119,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             window->mouse_down_state[E2D_LMB] = true;
             window->mouse_pressed_state[E2D_LMB] = true;
         } break;
-
+        
         case WM_LBUTTONUP: {
             window->mouse_down_state[E2D_LMB] = false;
             window->mouse_released_state[E2D_LMB] = true;
@@ -159,7 +160,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             window->key_released_state[key] = true;
             window->key_down_state[key] = false;
         } break;
-            
+        
         default: {
             return DefWindowProc(hwnd, uMsg, wParam, lParam);
         }

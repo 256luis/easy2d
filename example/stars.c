@@ -6,10 +6,10 @@
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
-#define WIDTH (WINDOW_WIDTH/4)
-#define HEIGHT (WINDOW_HEIGHT/4)
+#define WIDTH (WINDOW_WIDTH/1)
+#define HEIGHT (WINDOW_HEIGHT/1)
 
-#define STAR_COUNT 5000
+#define STAR_COUNT 20000
 #define DEPTH 80
 
 typedef struct Star
@@ -28,7 +28,7 @@ int main()
 {
     e2d_init();
     e2d_Window* window = e2d_create_window(WINDOW_WIDTH, WINDOW_HEIGHT, WIDTH, HEIGHT, "WINDOW");
-    e2d_set_target_framerate(240);
+    e2d_set_target_framerate(60);
 
     Star stars[STAR_COUNT];
     for (int i = 0; i < STAR_COUNT; i++)
@@ -63,7 +63,7 @@ int main()
         // -------------------------------
 
         e2d_clear_framebuffer(window, E2D_BLACK);
-
+        
         // -------------------------------
 
         for (int i = 0; i < STAR_COUNT; i++)
@@ -76,13 +76,13 @@ int main()
                 .a = 255
             };
             e2d_set_pixel(window, stars[i].x, stars[i].y, color);
-        }
-
-        
+            
+        }        
         
         // -------------------------------
         
         e2d_draw_framebuffer(window);
+        printf("%f\n", 1000 / (e2d_get_delta_time()*1000));
         e2d_limit_framerate();
     }
     

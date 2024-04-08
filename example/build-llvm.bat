@@ -1,7 +1,7 @@
 @echo off
 
 set CC=clang
-set CFLAGS=-O3 -I../include -std=c17 -pedantic -Wall -Wextra -Wno-deprecated-declarations
+set CFLAGS=-O3 -I../include -std=c17 -pedantic -Wall -Wextra -Wno-deprecated-declarations -Wno-strict-prototypes
 set LFLAGS=-L../lib -leasy2d -luser32 -lgdi32 -lwinmm
 set SRC=*
 set EX=%1

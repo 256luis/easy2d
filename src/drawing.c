@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <math.h>
-#include "easy2d_internals.h"     
+#include "easy2d_internals.h"
 
 static inline
 uint32_t e2d_color_to_hex(e2d_Color color)
@@ -64,7 +64,7 @@ void e2d_draw_line(e2d_Window* window, int x1, int y1, int x2, int y2, e2d_Color
 {
     int dx = x2 - x1;
     int dy = y2 - y1;
-    
+
     if (dy == 0)
     {
         draw_horizontal_line(window, x1, x2, y1, color);
@@ -76,12 +76,12 @@ void e2d_draw_line(e2d_Window* window, int x1, int y1, int x2, int y2, e2d_Color
         draw_vertical_line(window, x1, y1, y2, color);
         return;
     }
-    
+
     // if more horizontal than vertical
     if (abs(dx) > abs(dy))
     {
         float slope = (float)dy / dx;
-        
+
         // so we only go from left to right
         if (x1 > x2)
         {
@@ -100,7 +100,7 @@ void e2d_draw_line(e2d_Window* window, int x1, int y1, int x2, int y2, e2d_Color
         while (x < x2)
         {
             e2d_set_pixel(window, x, y, color);
-            
+
             x++;
             y += slope;
         }
@@ -108,7 +108,7 @@ void e2d_draw_line(e2d_Window* window, int x1, int y1, int x2, int y2, e2d_Color
     else
     {
         float slope = (float)dx / dy;
-        
+
         // so we only go from top to bottom
         if (y1 > y2)
         {
@@ -127,7 +127,7 @@ void e2d_draw_line(e2d_Window* window, int x1, int y1, int x2, int y2, e2d_Color
         while (y < y2)
         {
             e2d_set_pixel(window, x, y, color);
-            
+
             x += slope;
             y++;
         }
@@ -161,7 +161,7 @@ void e2d_draw_triangle_lines(e2d_Window* window,
                              int x2, int y2,
                              int x3, int y3,
                              e2d_Color color)
-{   
+{
     e2d_draw_line(window, x1, y1, x2, y2, color);
     e2d_draw_line(window, x2, y2, x3, y3, color);
     e2d_draw_line(window, x3, y3, x1, y1, color);

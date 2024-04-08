@@ -8,6 +8,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pCmdLine, 
     (void)hPrevInstance;
     (void)pCmdLine;
     (void)nCmdShow;
-    
+
     return main();
 }
