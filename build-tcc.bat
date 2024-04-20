@@ -3,16 +3,17 @@
 set CC=tcc
 set CFLAGS=-c -O3 -I../include -std=c17 -pedantic -Wall -Wextra -Wno-deprecated-declarations
 set LFLAGS=-luser32 -lgdi32
-set SRC=%1
+set tmp=%1
+set SRC=../src/%tmp%
 
-if not defined SRC (
-    set SRC=*
+if not defined tmp (
+    set SRC= ../src/drawing.c ../src/event.c ../src/text.c ../src/time.c ../src/window.c ../src/winmain.c
 )
 
 pushd build
 
 echo compiling with %CC%...
-call %CC% ../src/%SRC%.c %CFLAGS%
+call %CC% %SRC% %CFLAGS%
 echo done!
 echo -----------------------------
 

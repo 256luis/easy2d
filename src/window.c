@@ -15,7 +15,7 @@ void e2d_init()
     pCmdLine = GetCommandLine();
     nCmdShow = SW_SHOW;
     window_count = 0;
-
+    
     internal_time_init();
     vk_to_e2d_lut_init();
 }

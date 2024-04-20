@@ -10,7 +10,7 @@ double time_now;
 double time_prev;
 double delta_time;
 
-double e2d_get_time();
+double e2d_get_time(); 
 
 void internal_time_init()
 {
@@ -38,21 +38,20 @@ void e2d_set_target_framerate(int target_framerate)
 
 void e2d_update_time()
 {
-    frame_start = e2d_get_time();
-    time_prev = time_now;
-    time_now = frame_start;
-    delta_time = time_now - time_prev;
-}
-
-void e2d_limit_framerate()
-{
+    // limit framerate
     double frame_time = e2d_get_time() - frame_start;
     if (frame_time < target_delta_time)
     {
         int amount_to_sleep = (target_delta_time - frame_time) * 1000;
         Sleep(amount_to_sleep);
     }
+    
+    frame_start = e2d_get_time();
+    time_prev = time_now;
+    time_now = frame_start;
+    delta_time = time_now - time_prev;
 }
+
 
 double e2d_get_delta_time()
 {

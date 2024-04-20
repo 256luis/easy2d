@@ -14,7 +14,7 @@ void vk_map_sequence_e2d(int vk_start, int e2d_start, int count)
     for (int i = 0, c = vk_start; i < count; i++)
     {
         vk_to_e2d_lut[i + c] = i + e2d_start;        
-    }    
+    }
 }
 
 // prepare LUT

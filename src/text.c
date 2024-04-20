@@ -1384,6 +1384,14 @@ void e2d_draw_string(e2d_Window* window, const char* s, int x, int y, e2d_Color 
             cursor_x = x;
             continue;
         }
+
+        // if tab
+        if (*s == '\t')
+        {
+            // cursor_y += CHAR_HEIGHT;
+            cursor_x += CHAR_WIDTH * 4;
+            continue;
+        }
         
         e2d_draw_char(window, *s, cursor_x, cursor_y, color);
         cursor_x += CHAR_WIDTH;
