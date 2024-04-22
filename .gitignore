@@ -6,4 +6,5 @@ buildall.bat
 lib/
 lake.yaml
 *.bmp
+*.png
 compile_flags.txt

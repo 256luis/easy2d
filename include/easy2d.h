@@ -22,6 +22,13 @@
 typedef struct e2d_Window e2d_Window;
 typedef struct e2d_Image e2d_Image;
 
+typedef enum e2d_ImageFormat
+{
+    E2D_BMP,
+    E2D_JPEG,
+    E2D_PNG,
+} e2d_ImageFormat;
+
 typedef struct e2d_Color
 {
     uint8_t r;
@@ -118,7 +125,7 @@ void e2d_draw_framebuffer(e2d_Window* window);
 void e2d_draw_char(e2d_Window* window, char c, int x, int y, e2d_Color color);
 void e2d_draw_string(e2d_Window* window, const char* s, int x, int y, e2d_Color color);
 
-e2d_Image* e2d_load_bmp(const char* path);
+e2d_Image* e2d_load_image(const char* path, e2d_ImageFormat image_format);
 void e2d_destroy_image(e2d_Image* image);
 void e2d_draw_image(e2d_Window* window, e2d_Image* image, int x, int y);
 
