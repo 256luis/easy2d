@@ -14,11 +14,24 @@ uint32_t e2d_color_to_hex(e2d_Color color)
     return hex;
 }
 
+static inline
+e2d_Color e2d_hex_to_color(uint32_t hex)
+{
+    e2d_Color color = {
+        .b = (hex & 0x000000FF) >> 0,
+        .g = (hex & 0x0000FF00) >> 8,
+        .r = (hex & 0x00FF0000) >> 16,
+        .a = (hex & 0xFF000000) >> 24,
+    };
+
+    return color;
+}
+
 void e2d_set_pixel(e2d_Window* window, int x, int y, e2d_Color color)
 {
     if (x < 0 || x >= window->resolution_width) return;
     if (y < 0 || y >= window->resolution_height) return;
-
+    
     uint32_t hex = e2d_color_to_hex(color);
     window->framebuffer[x + (y * window->resolution_width)] = hex;
 }
@@ -176,11 +189,14 @@ void e2d_draw_image(e2d_Window* window, e2d_Image* image, int x, int y)
             int final_x = image_x + x;
             int final_y = image_y + y;
 
-            if (final_x < 0 || final_x >= window->resolution_width) return;
-            if (final_y < 0 || final_y >= window->resolution_height) return;
+            /* if (final_x < 0 || final_x >= window->resolution_width) return; */
+            /* if (final_y < 0 || final_y >= window->resolution_height) return; */
 
             uint32_t hex = image->pixels[image_x + (image_y * image->width)];
-            window->framebuffer[final_x + (final_y * window->resolution_width)] = hex;
+            /* window->framebuffer[final_x + (final_y * window->resolution_width)] = hex; */
+
+            e2d_Color color = e2d_hex_to_color(hex);
+            e2d_set_pixel(window, final_x, final_y, color);
         }
     }
 }
