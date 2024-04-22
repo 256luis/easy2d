@@ -20,6 +20,7 @@
 #define E2D_PINK      ((e2d_Color){255,   0, 127, 255})
 
 typedef struct e2d_Window e2d_Window;
+typedef struct e2d_Image e2d_Image;
 
 typedef struct e2d_Color
 {
@@ -116,6 +117,9 @@ void e2d_draw_framebuffer(e2d_Window* window);
 
 void e2d_draw_char(e2d_Window* window, char c, int x, int y, e2d_Color color);
 void e2d_draw_string(e2d_Window* window, const char* s, int x, int y, e2d_Color color);
+
+e2d_Image* e2d_load_bmp(const char* path);
+void e2d_destroy_image(e2d_Image* image);
 
 void e2d_update_time();
 double e2d_get_time();

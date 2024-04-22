@@ -6,7 +6,7 @@ set LFLAGS=-luser32 -lgdi32
 set SRC=%1
 
 if not defined SRC (
-    set SRC= ../src/drawing.c ../src/event.c ../src/text.c ../src/time.c ../src/window.c ../src/winmain.c
+    set SRC= ../src/drawing.c ../src/event.c ../src/text.c ../src/time.c ../src/window.c ../src/winmain.c ../src/image.c
 )
 
 pushd build

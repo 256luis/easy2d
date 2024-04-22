@@ -37,6 +37,13 @@ typedef struct e2d_Window
     HDC device_context;
 } e2d_Window;
 
+typedef struct e2d_Image
+{
+    int width;
+    int height;
+    uint32_t* pixels;
+} e2d_Image;
+
 extern unsigned int window_count;
 extern e2d_Window* windows[100];
 
