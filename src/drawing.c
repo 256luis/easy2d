@@ -167,6 +167,24 @@ void e2d_draw_triangle_lines(e2d_Window* window,
     e2d_draw_line(window, x3, y3, x1, y1, color);
 }
 
+void e2d_draw_image(e2d_Window* window, e2d_Image* image, int x, int y)
+{
+    for (int image_x = 0; image_x < image->width; image_x++)
+    {
+        for (int image_y = 0; image_y < image->height; image_y++)
+        {
+            int final_x = image_x + x;
+            int final_y = image_y + y;
+
+            if (final_x < 0 || final_x >= window->resolution_width) return;
+            if (final_y < 0 || final_y >= window->resolution_height) return;
+
+            uint32_t hex = image->pixels[image_x + (image_y * image->width)];
+            window->framebuffer[final_x + (final_y * window->resolution_width)] = hex;
+        }
+    }
+}
+
 int e2d_get_framebuffer_length(e2d_Window* window)
 {
     return window->resolution_width * window->resolution_height;

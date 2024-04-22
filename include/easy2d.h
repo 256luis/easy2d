@@ -120,6 +120,7 @@ void e2d_draw_string(e2d_Window* window, const char* s, int x, int y, e2d_Color 
 
 e2d_Image* e2d_load_bmp(const char* path);
 void e2d_destroy_image(e2d_Image* image);
+void e2d_draw_image(e2d_Window* window, e2d_Image* image, int x, int y);
 
 void e2d_update_time();
 double e2d_get_time();
