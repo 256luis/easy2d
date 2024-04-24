@@ -45,17 +45,25 @@ e2d_Image* e2d_parse_bmp(uint8_t* bytes)
                         
     int image_size = width * height;
     uint32_t* pixels_temp = calloc(image_size, sizeof(uint32_t));
-    int bytes_per_pixel = bit_count / 8;
 
     // copy pixel array from file to pixels_temp array
     // take into account different sized pixels
-    for (int i = 0, j = 0; i < image_size * 4; i += 4, j += bytes_per_pixel)
+    if (bit_count >= 8)
     {
-        for (int k = 0; k < bytes_per_pixel; k++)
+        int bytes_per_pixel = bit_count / 8;
+        for (int i = 0, j = 0; i < image_size * 4; i += 4, j += bytes_per_pixel)
         {
-            uint8_t* p = (uint8_t*)pixels_temp;
-            p[i + k] = bytes[pixels_start + j + k];
-        }
+            for (int k = 0; k < bytes_per_pixel; k++)
+            {
+                uint8_t* p = (uint8_t*)pixels_temp;
+                p[i + k] = bytes[pixels_start + j + k];
+            }
+        }        
+    }
+    else
+    {
+        // TODO: this (read the BMP file format documentation)
+        
     }
             
     // flip the image vertically
@@ -69,7 +77,6 @@ e2d_Image* e2d_parse_bmp(uint8_t* bytes)
     }
     
     free(pixels_temp);            
-    free(bytes);
     return image;
 }
 
@@ -100,6 +107,7 @@ e2d_Image* e2d_load_image(const char* path, e2d_ImageFormat image_format)
         default: image = NULL;
     }
 
+    free(bytes);
     return image;
 }
 
