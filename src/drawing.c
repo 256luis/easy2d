@@ -2,7 +2,6 @@
 #include <math.h>
 #include "easy2d_internals.h"
 
-static inline
 uint32_t e2d_color_to_hex(e2d_Color color)
 {
     uint32_t hex =
@@ -14,7 +13,6 @@ uint32_t e2d_color_to_hex(e2d_Color color)
     return hex;
 }
 
-static inline
 e2d_Color e2d_hex_to_color(uint32_t hex)
 {
     e2d_Color color = {

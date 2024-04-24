@@ -111,6 +111,27 @@ e2d_Image* e2d_load_image(const char* path, e2d_ImageFormat image_format)
     return image;
 }
 
+// if `colors` is NULL, create empty image with `width` and `height` as initial dimensions
+e2d_Image* e2d_create_image(e2d_Color* colors, int width, int height)
+{
+    E2D_ASSERT(width >= 0, NULL);
+    E2D_ASSERT(height >= 0, NULL);
+
+    e2d_Image* image = calloc(width * height, sizeof(e2d_Image));
+    image->width = width;
+    image->height = height;
+
+    if (colors != NULL)
+    {
+        for (int i = 0; i < width * height; i++)
+        {
+            image->pixels[i] = e2d_color_to_hex(colors[i]);
+        }
+    }
+    
+    return image;
+}
+
 void e2d_destroy_image(e2d_Image* image)
 {
     free(image->pixels);
