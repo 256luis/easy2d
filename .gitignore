@@ -1,5 +1,7 @@
 *.exe
 *.o*
+*.ilk
+*.pdb
 main.c
 buildmain.bat
 buildall.bat

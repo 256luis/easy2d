@@ -1,9 +1,10 @@
 @echo off
 
 echo cleaning...
-del /s /q *.exe
-del /s /q *.o*
-del /s /q *.s
-del /s /q *.a
-del /s /q *.lib
+del /q build\*
+del /q lib\*
+del /q *.exe
+del /q *.ilk
+del /q *.obj
+del /q *.pdb
 echo done!
