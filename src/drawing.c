@@ -38,9 +38,9 @@ void e2d_set_pixel(e2d_Window* window, int x, int y, e2d_Color color)
     uint8_t blended_alpha = color.a + background_color.a * (1 - background_alpha_percent);
     
     e2d_Color new_color = {
-        .r = (color.r * foreground_alpha_percent) + (background_color.r * background_alpha_percent),
-        .g = (color.g * foreground_alpha_percent) + (background_color.g * background_alpha_percent),
-        .b = (color.b * foreground_alpha_percent) + (background_color.b * background_alpha_percent),
+        .r = (color.r * foreground_alpha_percent) + (background_color.r * (1 - foreground_alpha_percent)),
+        .g = (color.g * foreground_alpha_percent) + (background_color.g * (1 - foreground_alpha_percent)),
+        .b = (color.b * foreground_alpha_percent) + (background_color.b * (1 - foreground_alpha_percent)),
         .a = blended_alpha
     };
     
