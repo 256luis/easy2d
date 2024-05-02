@@ -29,8 +29,22 @@ void e2d_set_pixel(e2d_Window* window, int x, int y, e2d_Color color)
 {
     if (x < 0 || x >= window->resolution_width) return;
     if (y < 0 || y >= window->resolution_height) return;
+
+    e2d_Color background_color =
+        e2d_hex_to_color(window->framebuffer[x + (y * window->resolution_width)]);
+
+    float foreground_alpha_percent = color.a / 255.f;
+    float background_alpha_percent = background_color.a / 255.f;
+    uint8_t blended_alpha = color.a + background_color.a * (1 - background_alpha_percent);
     
-    uint32_t hex = e2d_color_to_hex(color);
+    e2d_Color new_color = {
+        .r = (color.r * foreground_alpha_percent) + (background_color.r * background_alpha_percent),
+        .g = (color.g * foreground_alpha_percent) + (background_color.g * background_alpha_percent),
+        .b = (color.b * foreground_alpha_percent) + (background_color.b * background_alpha_percent),
+        .a = blended_alpha
+    };
+    
+    uint32_t hex = e2d_color_to_hex(new_color);
     window->framebuffer[x + (y * window->resolution_width)] = hex;
 }
 
