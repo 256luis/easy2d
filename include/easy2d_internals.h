@@ -50,7 +50,5 @@ extern e2d_Window* windows[100];
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 void internal_time_init();
 void vk_to_e2d_lut_init();
-uint32_t e2d_color_to_hex(e2d_Color color);
-e2d_Color e2d_hex_to_color(uint32_t hex);
 
 #endif // EASY2D_INTERNALS_H

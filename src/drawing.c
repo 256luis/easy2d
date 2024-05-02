@@ -2,36 +2,14 @@
 #include <math.h>
 #include "easy2d_internals.h"
 
-uint32_t e2d_color_to_hex(e2d_Color color)
-{
-    uint32_t hex =
-        color.a << 24 |
-        color.r << 16 |
-        color.g <<  8 |
-        color.b <<  0;
-
-    return hex;
-}
-
-e2d_Color e2d_hex_to_color(uint32_t hex)
-{
-    e2d_Color color = {
-        .b = (hex & 0x000000FF) >> 0,
-        .g = (hex & 0x0000FF00) >> 8,
-        .r = (hex & 0x00FF0000) >> 16,
-        .a = (hex & 0xFF000000) >> 24,
-    };
-
-    return color;
-}
-
 void e2d_set_pixel(e2d_Window* window, int x, int y, e2d_Color color)
 {
     if (x < 0 || x >= window->resolution_width) return;
     if (y < 0 || y >= window->resolution_height) return;
 
-    e2d_Color background_color =
-        e2d_hex_to_color(window->framebuffer[x + (y * window->resolution_width)]);
+    e2d_Color background_color = {
+        .hex = window->framebuffer[x + (y * window->resolution_width)]
+    };
 
     float foreground_alpha_percent = color.a / 255.f;
     float background_alpha_percent = background_color.a / 255.f;
@@ -44,8 +22,8 @@ void e2d_set_pixel(e2d_Window* window, int x, int y, e2d_Color color)
         .a = blended_alpha
     };
     
-    uint32_t hex = e2d_color_to_hex(new_color);
-    window->framebuffer[x + (y * window->resolution_width)] = hex;
+    // uint32_t hex = e2d_color_to_hex(new_color);
+    window->framebuffer[x + (y * window->resolution_width)] = new_color.hex;
 }
 
 static
@@ -204,10 +182,12 @@ void e2d_draw_image(e2d_Window* window, e2d_Image* image, int x, int y)
             /* if (final_x < 0 || final_x >= window->resolution_width) return; */
             /* if (final_y < 0 || final_y >= window->resolution_height) return; */
 
-            uint32_t hex = image->pixels[image_x + (image_y * image->width)];
-            /* window->framebuffer[final_x + (final_y * window->resolution_width)] = hex; */
+            e2d_Color color = {
+                .hex = image->pixels[image_x + (image_y * image->width)]
+            };
+            window->framebuffer[final_x + (final_y * window->resolution_width)] = color.hex;
 
-            e2d_Color color = e2d_hex_to_color(hex);
+            // e2d_Color color = e2d_hex_to_color(hex);
             e2d_set_pixel(window, final_x, final_y, color);
         }
     }
@@ -225,10 +205,25 @@ uint32_t* e2d_get_framebuffer_reference(e2d_Window* window)
 
 void e2d_clear_framebuffer(e2d_Window* window, e2d_Color color)
 {
-    uint32_t hex = e2d_color_to_hex(color);
+    // uint32_t hex = e2d_color_to_hex(color);
     for (int i = 0; i < e2d_get_framebuffer_length(window); i++)
-    {
-        window->framebuffer[i] = hex;
+    {          
+        e2d_Color background_color = {
+            .hex = window->framebuffer[i]
+        };
+        
+        float foreground_alpha_percent = color.a / 255.f;
+        float background_alpha_percent = background_color.a / 255.f;
+        uint8_t blended_alpha = color.a + background_color.a * (1 - background_alpha_percent);
+    
+        e2d_Color new_color = {
+            .r = (color.r * foreground_alpha_percent) + (background_color.r * (1 - foreground_alpha_percent)),
+            .g = (color.g * foreground_alpha_percent) + (background_color.g * (1 - foreground_alpha_percent)),
+            .b = (color.b * foreground_alpha_percent) + (background_color.b * (1 - foreground_alpha_percent)),
+            .a = blended_alpha
+        };
+        
+        window->framebuffer[i] = new_color.hex;
     }
 }
 

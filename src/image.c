@@ -125,7 +125,7 @@ e2d_Image* e2d_create_image(e2d_Color* colors, int width, int height)
     {
         for (int i = 0; i < width * height; i++)
         {
-            image->pixels[i] = e2d_color_to_hex(colors[i]);
+            image->pixels[i] = colors[i].hex;
         }
     }
     

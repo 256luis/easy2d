@@ -4,20 +4,20 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define E2D_BLACK     ((e2d_Color){  0,   0,   0, 255})
-#define E2D_WHITE     ((e2d_Color){255, 255, 255, 255})
-#define E2D_RED       ((e2d_Color){255,   0,   0, 255})
-#define E2D_ORANGE    ((e2d_Color){255, 128,   0, 255})
-#define E2D_YELLOW    ((e2d_Color){255, 255,   0, 255})
-#define E2D_LIME      ((e2d_Color){128, 255,   0, 255})
-#define E2D_GREEN     ((e2d_Color){  0, 255,   0, 255})
-#define E2D_TEAL      ((e2d_Color){  0, 255, 128, 255})
-#define E2D_CYAN      ((e2d_Color){  0, 255, 255, 255})
-#define E2D_LIGHTBLUE ((e2d_Color){  0, 128, 255, 255})
-#define E2D_BLUE      ((e2d_Color){  0,   0, 255, 255})
-#define E2D_PURPLE    ((e2d_Color){127,   0, 255, 255})
-#define E2D_MAGENTA   ((e2d_Color){255,   0, 255, 255})
-#define E2D_PINK      ((e2d_Color){255,   0, 127, 255})
+#define E2D_BLACK     ((e2d_Color){ .r =   0, .g =    0, .b =   0, .a = 255})
+#define E2D_WHITE     ((e2d_Color){ .r = 255, .g =  255, .b = 255, .a = 255})
+#define E2D_RED       ((e2d_Color){ .r = 255, .g =    0, .b =   0, .a = 255})
+#define E2D_ORANGE    ((e2d_Color){ .r = 255, .g =  128, .b =   0, .a = 255})
+#define E2D_YELLOW    ((e2d_Color){ .r = 255, .g =  255, .b =   0, .a = 255})
+#define E2D_LIME      ((e2d_Color){ .r = 128, .g =  255, .b =   0, .a = 255})
+#define E2D_GREEN     ((e2d_Color){ .r =   0, .g =  255, .b =   0, .a = 255})
+#define E2D_TEAL      ((e2d_Color){ .r =   0, .g =  255, .b = 128, .a = 255})
+#define E2D_CYAN      ((e2d_Color){ .r =   0, .g =  255, .b = 255, .a = 255})
+#define E2D_LIGHTBLUE ((e2d_Color){ .r =   0, .g =  128, .b = 255, .a = 255})
+#define E2D_BLUE      ((e2d_Color){ .r =   0, .g =    0, .b = 255, .a = 255})
+#define E2D_PURPLE    ((e2d_Color){ .r = 127, .g =    0, .b = 255, .a = 255})
+#define E2D_MAGENTA   ((e2d_Color){ .r = 255, .g =    0, .b = 255, .a = 255})
+#define E2D_PINK      ((e2d_Color){ .r = 255, .g =    0, .b = 127, .a = 255})
 
 typedef struct e2d_Window e2d_Window;
 typedef struct e2d_Image e2d_Image;
@@ -29,12 +29,17 @@ typedef enum e2d_ImageFormat
     E2D_PNG,
 } e2d_ImageFormat;
 
-typedef struct e2d_Color
+typedef union e2d_Color
 {
-    uint8_t r;
-    uint8_t g;
-    uint8_t b;
-    uint8_t a;
+    struct
+    {
+        uint8_t b;
+        uint8_t g;
+        uint8_t r;
+        uint8_t a;
+    };
+
+    uint32_t hex;
 } e2d_Color;
 
 typedef enum e2d_MouseButton
