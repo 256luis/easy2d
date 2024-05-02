@@ -205,25 +205,9 @@ uint32_t* e2d_get_framebuffer_reference(e2d_Window* window)
 
 void e2d_clear_framebuffer(e2d_Window* window, e2d_Color color)
 {
-    // uint32_t hex = e2d_color_to_hex(color);
     for (int i = 0; i < e2d_get_framebuffer_length(window); i++)
-    {          
-        e2d_Color background_color = {
-            .hex = window->framebuffer[i]
-        };
-        
-        float foreground_alpha_percent = color.a / 255.f;
-        float background_alpha_percent = background_color.a / 255.f;
-        uint8_t blended_alpha = color.a + background_color.a * (1 - background_alpha_percent);
-    
-        e2d_Color new_color = {
-            .r = (color.r * foreground_alpha_percent) + (background_color.r * (1 - foreground_alpha_percent)),
-            .g = (color.g * foreground_alpha_percent) + (background_color.g * (1 - foreground_alpha_percent)),
-            .b = (color.b * foreground_alpha_percent) + (background_color.b * (1 - foreground_alpha_percent)),
-            .a = blended_alpha
-        };
-        
-        window->framebuffer[i] = new_color.hex;
+    {                  
+        window->framebuffer[i] = color.hex;
     }
 }
 
