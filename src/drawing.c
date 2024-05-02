@@ -166,8 +166,8 @@ void e2d_draw_rect_lines(e2d_Window* window, int x, int y, int width, int height
     draw_horizontal_line(window, x, x + width, y + height - 1, color);
 
     // left and right sides
-    draw_vertical_line(window, x, y, y + height, color);
-    draw_vertical_line(window, x + width - 1, y, y + height, color);
+    draw_vertical_line(window, x, y + 1, y + height - 1, color);
+    draw_vertical_line(window, x + width - 1, y + 1, y + height - 1, color);
 }
 
 void e2d_draw_rect_fill(e2d_Window* window, int x, int y, int width, int height, e2d_Color color)
