@@ -14,7 +14,7 @@ void e2d_set_pixel(e2d_Window* window, int x, int y, e2d_Color color)
     float foreground_alpha_percent = color.a / 255.f;
     float background_alpha_percent = background_color.a / 255.f;
     uint8_t blended_alpha = color.a + background_color.a * (1 - background_alpha_percent);
-    
+
     e2d_Color new_color = {
         .r = (color.r * foreground_alpha_percent) + (background_color.r * (1 - foreground_alpha_percent)),
         .g = (color.g * foreground_alpha_percent) + (background_color.g * (1 - foreground_alpha_percent)),

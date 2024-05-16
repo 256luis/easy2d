@@ -100,6 +100,7 @@ void e2d_set_window_title(e2d_Window* window, const char* title)
 
 void e2d_destroy_window(e2d_Window* window)
 {
+    DestroyWindow(window->window_handle);
     free(window->framebuffer);
     free(window);
 }
