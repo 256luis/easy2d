@@ -13,7 +13,7 @@ typedef struct e2d_Window
 
     int resolution_width;
     int resolution_height;
-    
+
     float resolution_scale_width;
     float resolution_scale_height;
 
@@ -27,7 +27,7 @@ typedef struct e2d_Window
     bool key_down_state[E2D_KEY_COUNT];
     bool key_pressed_state[E2D_KEY_COUNT];
     bool key_released_state[E2D_KEY_COUNT];
-    
+
     uint32_t* framebuffer;
 
     bool keep_running;

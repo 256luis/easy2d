@@ -24,7 +24,7 @@ void vk_to_e2d_lut_init()
     {
         vk_to_e2d_lut[i] = -1;
     }
-    
+
     vk_to_e2d_lut[VK_BACK]      = E2D_KEY_BACKSPACE;
     vk_to_e2d_lut[VK_TAB]       = E2D_KEY_TAB;
     vk_to_e2d_lut[VK_RETURN]    = E2D_KEY_RETURN;
@@ -57,35 +57,35 @@ void vk_to_e2d_lut_init()
     vk_to_e2d_lut[VK_NUMLOCK]   = E2D_KEY_NUMLK;
     vk_to_e2d_lut[VK_SCROLL]    = E2D_KEY_SCRLLK;
 
-    vk_to_e2d_lut[VK_SHIFT]     = E2D_KEY_SHIFT; 
-    vk_to_e2d_lut[VK_CONTROL]   = E2D_KEY_CTRL;  
-    vk_to_e2d_lut[VK_LMENU]     = E2D_KEY_LALT;  
+    vk_to_e2d_lut[VK_SHIFT]     = E2D_KEY_SHIFT;
+    vk_to_e2d_lut[VK_CONTROL]   = E2D_KEY_CTRL;
+    vk_to_e2d_lut[VK_LMENU]     = E2D_KEY_LALT;
     vk_to_e2d_lut[VK_RMENU]     = E2D_KEY_RALT;
 
     vk_to_e2d_lut[VK_OEM_PLUS]  = E2D_KEY_EQUALS;
     vk_to_e2d_lut[VK_OEM_MINUS] = E2D_KEY_MINUS;
     vk_to_e2d_lut[VK_OEM_COMMA]  = E2D_KEY_COMMA;
     vk_to_e2d_lut[VK_OEM_PERIOD] = E2D_KEY_PERIOD;
-    
+
     vk_to_e2d_lut[VK_OEM_3]     = E2D_KEY_BACKTICK;
     vk_to_e2d_lut[VK_OEM_4]     = E2D_KEY_OPENBRACKET;
     vk_to_e2d_lut[VK_OEM_6]     = E2D_KEY_CLOSEBRACKET;
     vk_to_e2d_lut[VK_OEM_2]     = E2D_KEY_FORWARDSLASH;
-    vk_to_e2d_lut[VK_OEM_5]     = E2D_KEY_BACKSLASH;     
-    vk_to_e2d_lut[VK_OEM_7]     = E2D_KEY_APOSTROPHE;     
+    vk_to_e2d_lut[VK_OEM_5]     = E2D_KEY_BACKSLASH;
+    vk_to_e2d_lut[VK_OEM_7]     = E2D_KEY_APOSTROPHE;
     vk_to_e2d_lut[VK_OEM_1]     = E2D_KEY_SEMICOLON;
-        
+
     // assign alphabet
     vk_map_sequence_e2d(0x41, E2D_KEY_A, 26);
 
     // assign numbers
     vk_map_sequence_e2d(0x30, E2D_KEY_0, 10);
-    
+
     // assign numpad
     vk_map_sequence_e2d(VK_NUMPAD0, E2D_KEY_NUM0, 10);
-    
+
     // assign f-keys
-    vk_map_sequence_e2d(VK_F1, E2D_KEY_F1, 12);    
+    vk_map_sequence_e2d(VK_F1, E2D_KEY_F1, 12);
 }
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -95,7 +95,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     GetClassName(hwnd, class_name, 5);
     int window_id = atoi(class_name);
     e2d_Window* window = windows[window_id];
-    
+
     switch (uMsg)
     {
         case WM_DESTROY:
@@ -107,7 +107,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             window->client_width = LOWORD(lParam);
             window->client_height = HIWORD(lParam);
             window->resolution_scale_width = (float)window->resolution_width / window->client_width;
-            window->resolution_scale_height = (float)window->resolution_height / window->client_height;    
+            window->resolution_scale_height = (float)window->resolution_height / window->client_height;
         } break;
 
         case WM_MOUSEMOVE: {
@@ -119,12 +119,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             window->mouse_down_state[E2D_LMB] = true;
             window->mouse_pressed_state[E2D_LMB] = true;
         } break;
-        
+
         case WM_LBUTTONUP: {
             window->mouse_down_state[E2D_LMB] = false;
             window->mouse_released_state[E2D_LMB] = true;
         } break;
-        
+
         case WM_RBUTTONDOWN: {
             window->mouse_down_state[E2D_RMB] = true;
             window->mouse_pressed_state[E2D_RMB] = true;
@@ -134,7 +134,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             window->mouse_down_state[E2D_RMB] = false;
             window->mouse_released_state[E2D_RMB] = true;
         } break;
-        
+
         case WM_MBUTTONDOWN: {
             window->mouse_down_state[E2D_MMB] = true;
             window->mouse_pressed_state[E2D_MMB] = true;
@@ -160,7 +160,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             window->key_released_state[key] = true;
             window->key_down_state[key] = false;
         } break;
-        
+
         default: {
             return DefWindowProc(hwnd, uMsg, wParam, lParam);
         }
@@ -179,7 +179,7 @@ void e2d_handle_events()
 
         memset(windows[i]->key_pressed_state,  0, E2D_KEY_COUNT * sizeof(bool));
         memset(windows[i]->key_released_state, 0, E2D_KEY_COUNT * sizeof(bool));
-                
+
         windows[i]->mouse_wheel_delta = 0;
     }
 
@@ -203,12 +203,12 @@ int e2d_get_mouse_y(e2d_Window* window)
 
 int e2d_get_mouse_x_in_framebuffer(e2d_Window* window)
 {
-    return window->mouse_x * window->resolution_scale_width;    
+    return window->mouse_x * window->resolution_scale_width;
 }
 
 int e2d_get_mouse_y_in_framebuffer(e2d_Window* window)
 {
-    return window->mouse_y * window->resolution_scale_height;        
+    return window->mouse_y * window->resolution_scale_height;
 }
 
 int e2d_get_mouse_wheel_delta(e2d_Window* window)

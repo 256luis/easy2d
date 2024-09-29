@@ -9,7 +9,7 @@
 
 #define E2D_ASSERT(condition, if_false) if (!(condition)) return if_false
 #define E2D_REINTERPRET_CAST(var, new_type) (*((new_type*)&(var)))
-    
+
 // bitmap file header
 // byte 0x00 - 0x01 (2 bytes) -- MUST BE 0x42 0x4D
 // byte 0x02 - 0x05 (4 bytes) -- size of bmp file in bytes
@@ -32,17 +32,17 @@ e2d_Image* e2d_parse_bmp(uint8_t* bytes)
     // validate signature
     E2D_ASSERT(bytes[0x00] == 0x42 && bytes[0x01] == 0x4D, NULL);
 
-    uint32_t pixels_start = E2D_REINTERPRET_CAST(bytes[0x0A], uint32_t);    
+    uint32_t pixels_start = E2D_REINTERPRET_CAST(bytes[0x0A], uint32_t);
     int32_t width = E2D_REINTERPRET_CAST(bytes[0x12], int32_t);
     int32_t height = E2D_REINTERPRET_CAST(bytes[0x16], int32_t);
-    uint16_t planes = E2D_REINTERPRET_CAST(bytes[0x1A], uint16_t);        
+    uint16_t planes = E2D_REINTERPRET_CAST(bytes[0x1A], uint16_t);
     E2D_ASSERT(planes == 1, NULL);
     uint16_t bit_count = E2D_REINTERPRET_CAST(bytes[0x1C], uint16_t);
 
     e2d_Image* image = malloc(sizeof(e2d_Image));
     image->width = width;
     image->height = height;
-                        
+
     int image_size = width * height;
     uint32_t* pixels_temp = calloc(image_size, sizeof(uint32_t));
 
@@ -58,14 +58,14 @@ e2d_Image* e2d_parse_bmp(uint8_t* bytes)
                 uint8_t* p = (uint8_t*)pixels_temp;
                 p[i + k] = bytes[pixels_start + j + k];
             }
-        }        
+        }
     }
     else
     {
         // TODO: this (read the BMP file format documentation)
-        
+
     }
-            
+
     // flip the image vertically
     image->pixels = calloc(image_size, sizeof(uint32_t));
     for (int old_y = height-1, new_y = 0; new_y < height; old_y--, new_y++)
@@ -75,8 +75,8 @@ e2d_Image* e2d_parse_bmp(uint8_t* bytes)
             image->pixels[x + (new_y * width)] = pixels_temp[x + (old_y * width)];
         }
     }
-    
-    free(pixels_temp);            
+
+    free(pixels_temp);
     return image;
 }
 
@@ -87,20 +87,20 @@ e2d_Image* e2d_load_image(const char* path, e2d_ImageFormat image_format)
     {
         FILE* file = fopen(path, "rb");
         if (file == NULL) return NULL;
-        
+
         fseek(file, 0, SEEK_END);
         size_t size = ftell(file);
         fseek(file, 0, SEEK_SET);
-        
+
         bytes = malloc(sizeof(uint8_t) * size);
         if (bytes == NULL) return NULL;
-        
+
         fread(bytes, 1, size, file);
         fclose(file);
     }
-    
+
     e2d_Image* image;
-    
+
     switch (image_format)
     {
         case E2D_BMP: image = e2d_parse_bmp(bytes); break;
@@ -128,7 +128,7 @@ e2d_Image* e2d_create_image(e2d_Color* colors, int width, int height)
             image->pixels[i] = colors[i].hex;
         }
     }
-    
+
     return image;
 }
 

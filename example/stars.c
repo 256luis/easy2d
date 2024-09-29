@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include "easy2d.h"
@@ -43,7 +43,7 @@ int main()
     }
 
     qsort(stars, STAR_COUNT, sizeof(Star), compare);
-    
+
     int star_speed = 25;
 
     while (!e2d_should_window_close(window) && !e2d_is_key_pressed(window, E2D_KEY_ESC))
@@ -67,7 +67,7 @@ int main()
         // -------------------------------
 
         e2d_clear_framebuffer(window, E2D_BLACK);
-        
+
         // -------------------------------
 
         for (int i = 0; i < STAR_COUNT; i++)
@@ -80,21 +80,21 @@ int main()
                 .a = 255
             };
             e2d_set_pixel(window, stars[i].x, stars[i].y, color);
-            
-        }        
-        
+
+        }
+
         // -------------------------------
 
         // draw fps in upper left corner
         char fps_string[10] = {0};
         sprintf(fps_string, "FPS: %d", (int)fps);
         e2d_draw_string(window, fps_string, 0, 0, E2D_GREEN);
-        
+
         e2d_draw_framebuffer(window);
     }
-    
+
     e2d_destroy_window(window);
     e2d_close();
-    
+
     return 0;
 }
