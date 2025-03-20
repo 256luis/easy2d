@@ -1,7 +1,7 @@
 @echo off
 
 set CC=cl
-set CFLAGS=/c /Fobuild\ /Fdbuild\ /Od /Zi /Iinclude /std:c17 /D_CRT_SECURE_NO_WARNINGS /W4 /wd4255 /wd5105
+set CFLAGS=/c /Fobuild\ /Fdbuild\ /Od /Zi /Iinclude /std:c17 /D_CRT_SECURE_NO_WARNINGS /W4 /wd4255 /wd5105 /we4133
 set SRC=%1
 
 if not defined SRC (

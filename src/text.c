@@ -1340,7 +1340,7 @@ bool unprintable[] = {
     1, 1, 1, 1, 1, 1,
 };
 
-void e2d_draw_char(e2d_Window* window, char c, int x, int y, e2d_Color color)
+void e2d_texture_draw_char(e2d_Texture* texture, char c, int x, int y, e2d_Color color)
 {
     if (!isprint(c))
     {
@@ -1351,7 +1351,7 @@ void e2d_draw_char(e2d_Window* window, char c, int x, int y, e2d_Color color)
             {
                 if (unprintable[col + (row * CHAR_WIDTH)])
                 {
-                    e2d_set_pixel(window, col + x, row + y, color);
+                    e2d_texture_set_pixel(texture, col + x, row + y, color);
                 }
             }
         }
@@ -1365,13 +1365,13 @@ void e2d_draw_char(e2d_Window* window, char c, int x, int y, e2d_Color color)
         {
             if (chars[c - CHAR_OFFSET][col + (row * CHAR_WIDTH)])
             {
-                e2d_set_pixel(window, col + x, row + y, color);
+                e2d_texture_set_pixel(texture, col + x, row + y, color);
             }
         }
     }
 }
 
-void e2d_draw_string(e2d_Window* window, const char* s, int x, int y, e2d_Color color)
+void e2d_texture_draw_string(e2d_Texture* texture, const char* s, int x, int y, e2d_Color color)
 {
     int cursor_x = x;
     int cursor_y = y;
@@ -1393,7 +1393,7 @@ void e2d_draw_string(e2d_Window* window, const char* s, int x, int y, e2d_Color 
             continue;
         }
 
-        e2d_draw_char(window, *s, cursor_x, cursor_y, color);
+        e2d_texture_draw_char(texture, *s, cursor_x, cursor_y, color);
         cursor_x += CHAR_WIDTH;
     }
 }

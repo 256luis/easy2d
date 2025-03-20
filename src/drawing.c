@@ -1,15 +1,14 @@
 #include <stdio.h>
 #include <math.h>
+#include "easy2d.h"
 #include "easy2d_internals.h"
 
-void e2d_set_pixel(e2d_Window* window, int x, int y, e2d_Color color)
+void e2d_texture_set_pixel(e2d_Texture* texture, int x, int y, e2d_Color color)
 {
-    if (x < 0 || x >= window->resolution_width) return;
-    if (y < 0 || y >= window->resolution_height) return;
+    if (x < 0 || x >= texture->width) return;
+    if (y < 0 || y >= texture->height) return;
 
-    e2d_Color background_color = {
-        .hex = window->framebuffer[x + (y * window->resolution_width)]
-    };
+    e2d_Color background_color = texture->pixels[x + (y * texture->width)];
 
     float foreground_alpha_percent = color.a / 255.f;
     float background_alpha_percent = background_color.a / 255.f;
@@ -23,11 +22,11 @@ void e2d_set_pixel(e2d_Window* window, int x, int y, e2d_Color color)
     };
 
     // uint32_t hex = e2d_color_to_hex(new_color);
-    window->framebuffer[x + (y * window->resolution_width)] = new_color.hex;
+    texture->pixels[x + (y * texture->width)] = new_color;
 }
 
 static
-void draw_horizontal_line(e2d_Window* window, int x1, int x2, int y, e2d_Color color)
+void draw_horizontal_line(e2d_Texture* texture, int x1, int x2, int y, e2d_Color color)
 {
     // so we only go from left to right
     if (x1 > x2)
@@ -39,12 +38,12 @@ void draw_horizontal_line(e2d_Window* window, int x1, int x2, int y, e2d_Color c
 
     for (int x = x1; x < x2; x++)
     {
-        e2d_set_pixel(window, x, y, color);
+        e2d_texture_set_pixel(texture, x, y, color);
     }
 }
 
 static
-void draw_vertical_line(e2d_Window* window, int x, int y1, int y2, e2d_Color color)
+void draw_vertical_line(e2d_Texture* texture, int x, int y1, int y2, e2d_Color color)
 {
     // so we only go from top to bottom
     if (y1 > y2)
@@ -56,27 +55,27 @@ void draw_vertical_line(e2d_Window* window, int x, int y1, int y2, e2d_Color col
 
     for (int y = y1; y < y2; y++)
     {
-        e2d_set_pixel(window, x, y, color);
+        e2d_texture_set_pixel(texture, x, y, color);
     }
 }
 
 // NOTE: this is a NAIVE line drawing algorithm
 //       it may be slow because of floating point operations
 // TODO: implement bresenham's line drawing algorithm
-void e2d_draw_line(e2d_Window* window, int x1, int y1, int x2, int y2, e2d_Color color)
+void e2d_texture_draw_line(e2d_Texture* texture, int x1, int y1, int x2, int y2, e2d_Color color)
 {
     int dx = x2 - x1;
     int dy = y2 - y1;
 
     if (dy == 0)
     {
-        draw_horizontal_line(window, x1, x2, y1, color);
+        draw_horizontal_line(texture, x1, x2, y1, color);
         return;
     }
 
     if (dx == 0)
     {
-        draw_vertical_line(window, x1, y1, y2, color);
+        draw_vertical_line(texture, x1, y1, y2, color);
         return;
     }
 
@@ -102,7 +101,7 @@ void e2d_draw_line(e2d_Window* window, int x1, int y1, int x2, int y2, e2d_Color
         float y = y1;
         while (x < x2)
         {
-            e2d_set_pixel(window, x, y, color);
+            e2d_texture_set_pixel(texture, x, y, color);
 
             x++;
             y += slope;
@@ -129,7 +128,7 @@ void e2d_draw_line(e2d_Window* window, int x1, int y1, int x2, int y2, e2d_Color
         int y = y1;
         while (y < y2)
         {
-            e2d_set_pixel(window, x, y, color);
+            e2d_texture_set_pixel(texture, x, y, color);
 
             x += slope;
             y++;
@@ -137,91 +136,91 @@ void e2d_draw_line(e2d_Window* window, int x1, int y1, int x2, int y2, e2d_Color
     }
 }
 
-void e2d_draw_rect_lines(e2d_Window* window, int x, int y, int width, int height, e2d_Color color)
+void e2d_texture_draw_rect_lines(e2d_Texture* texture, int x, int y, int width, int height, e2d_Color color)
 {
     // top and bottom sides
-    draw_horizontal_line(window, x, x + width, y, color);
-    draw_horizontal_line(window, x, x + width, y + height - 1, color);
+    draw_horizontal_line(texture, x, x + width, y, color);
+    draw_horizontal_line(texture, x, x + width, y + height - 1, color);
 
     // left and right sides
-    draw_vertical_line(window, x, y + 1, y + height - 1, color);
-    draw_vertical_line(window, x + width - 1, y + 1, y + height - 1, color);
+    draw_vertical_line(texture, x, y + 1, y + height - 1, color);
+    draw_vertical_line(texture, x + width - 1, y + 1, y + height - 1, color);
 }
 
-void e2d_draw_rect_fill(e2d_Window* window, int x, int y, int width, int height, e2d_Color color)
+void e2d_texture_draw_rect_fill(e2d_Texture* texture, int x, int y, int width, int height, e2d_Color color)
 {
     for (int row = y; row < y + height; row++)
     {
         for (int col = x; col < x + width; col++)
         {
-            e2d_set_pixel(window, col, row, color);
+            e2d_texture_set_pixel(texture, col, row, color);
         }
     }
 }
 
-void e2d_draw_triangle_lines(e2d_Window* window,
+void e2d_texture_draw_triangle_lines(e2d_Texture* texture,
                              int x1, int y1,
                              int x2, int y2,
                              int x3, int y3,
                              e2d_Color color)
 {
-    e2d_draw_line(window, x1, y1, x2, y2, color);
-    e2d_draw_line(window, x2, y2, x3, y3, color);
-    e2d_draw_line(window, x3, y3, x1, y1, color);
+    e2d_texture_draw_line(texture, x1, y1, x2, y2, color);
+    e2d_texture_draw_line(texture, x2, y2, x3, y3, color);
+    e2d_texture_draw_line(texture, x3, y3, x1, y1, color);
 }
 
-void e2d_draw_image(e2d_Window* window, e2d_Image* image, int x, int y)
+/* void e2d_draw_image(e2d_Window* window, e2d_Image* image, int x, int y) */
+/* { */
+/*     for (int image_x = 0; image_x < image->width; image_x++) */
+/*     { */
+/*         for (int image_y = 0; image_y < image->height; image_y++) */
+/*         { */
+/*             int final_x = image_x + x; */
+/*             int final_y = image_y + y; */
+
+/*             /\* if (final_x < 0 || final_x >= window->resolution_width) return; *\/ */
+/*             /\* if (final_y < 0 || final_y >= window->resolution_height) return; *\/ */
+
+/*             e2d_Color color = { */
+/*                 .hex = image->pixels[image_x + (image_y * image->width)] */
+/*             }; */
+/*             window->framebuffer[final_x + (final_y * window->resolution_width)] = color.hex; */
+
+/*             // e2d_Color color = e2d_hex_to_color(hex); */
+/*             e2d_set_pixel(window, final_x, final_y, color); */
+/*         } */
+/*     } */
+/* } */
+
+/* int e2d_get_framebuffer_length(e2d_Window* window) */
+/* { */
+/*     return window->resolution_width * window->resolution_height; */
+/* } */
+
+/* uint32_t* e2d_get_framebuffer_reference(e2d_Window* window) */
+/* { */
+/*     return window->framebuffer; */
+/* } */
+
+void e2d_texture_clear(e2d_Texture* texture, e2d_Color color)
 {
-    for (int image_x = 0; image_x < image->width; image_x++)
+    for (int i = 0; i < texture->width * texture->height; i++)
     {
-        for (int image_y = 0; image_y < image->height; image_y++)
-        {
-            int final_x = image_x + x;
-            int final_y = image_y + y;
-
-            /* if (final_x < 0 || final_x >= window->resolution_width) return; */
-            /* if (final_y < 0 || final_y >= window->resolution_height) return; */
-
-            e2d_Color color = {
-                .hex = image->pixels[image_x + (image_y * image->width)]
-            };
-            window->framebuffer[final_x + (final_y * window->resolution_width)] = color.hex;
-
-            // e2d_Color color = e2d_hex_to_color(hex);
-            e2d_set_pixel(window, final_x, final_y, color);
-        }
+        texture->pixels[i] = color;
     }
 }
 
-int e2d_get_framebuffer_length(e2d_Window* window)
-{
-    return window->resolution_width * window->resolution_height;
-}
-
-uint32_t* e2d_get_framebuffer_reference(e2d_Window* window)
-{
-    return window->framebuffer;
-}
-
-void e2d_clear_framebuffer(e2d_Window* window, e2d_Color color)
-{
-    for (int i = 0; i < e2d_get_framebuffer_length(window); i++)
-    {
-        window->framebuffer[i] = color.hex;
-    }
-}
-
-void e2d_draw_framebuffer(e2d_Window* window)
+void e2d_texture_draw_to_window(e2d_Texture* texture, e2d_Window* window)
 {
     StretchDIBits(
         window->device_context,     // hdc
         0, 0,                       // xDest, yDest
-        window->client_width,       // DestWidth
-        window->client_height,      // DestWidth
+        window->width,       // DestWidth
+        window->height,      // DestWidth
         0, 0,                       // xSrc, ySrc
-        window->resolution_width,   // SrcWidth
-        window->resolution_height,  // SrcHeight
-        window->framebuffer,                // lpBits
+        texture->width,   // SrcWidth
+        texture->height,  // SrcHeight
+        texture->pixels,                // lpBits
         &window->bitmap_info,       // lpBmi
         DIB_RGB_COLORS,             // iUsage
         SRCCOPY

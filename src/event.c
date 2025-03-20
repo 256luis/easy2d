@@ -104,10 +104,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         } break;
 
         case WM_SIZE: {
-            window->client_width = LOWORD(lParam);
-            window->client_height = HIWORD(lParam);
-            window->resolution_scale_width = (float)window->resolution_width / window->client_width;
-            window->resolution_scale_height = (float)window->resolution_height / window->client_height;
+            window->width = LOWORD(lParam);
+            window->height = HIWORD(lParam);
+            /* window->resolution_scale_width = (float)window->resolution_width / window->client_width; */
+            /* window->resolution_scale_height = (float)window->resolution_height / window->client_height; */
         } break;
 
         case WM_MOUSEMOVE: {
@@ -199,16 +199,6 @@ int e2d_get_mouse_x(e2d_Window* window)
 int e2d_get_mouse_y(e2d_Window* window)
 {
     return window->mouse_y;
-}
-
-int e2d_get_mouse_x_in_framebuffer(e2d_Window* window)
-{
-    return window->mouse_x * window->resolution_scale_width;
-}
-
-int e2d_get_mouse_y_in_framebuffer(e2d_Window* window)
-{
-    return window->mouse_y * window->resolution_scale_height;
 }
 
 int e2d_get_mouse_wheel_delta(e2d_Window* window)

@@ -31,6 +31,12 @@ int main()
     e2d_Window* window = e2d_create_window(WINDOW_WIDTH, WINDOW_HEIGHT, WIDTH, HEIGHT, "WINDOW");
     e2d_set_target_framerate(TARGET_FPS);
 
+    e2d_Texture texture = {
+        .width = WIDTH,
+        .height = HEIGHT,
+        .pixels = malloc(sizeof(e2d_Color) * WIDTH * HEIGHT)
+    };
+
     // Star stars[STAR_COUNT];
     Star* stars = malloc(STAR_COUNT * sizeof(Star));
     for (int i = 0; i < STAR_COUNT; i++)
@@ -66,7 +72,7 @@ int main()
 
         // -------------------------------
 
-        e2d_clear_framebuffer(window, E2D_BLACK);
+        e2d_texture_clear(&texture, E2D_BLACK);
 
         // -------------------------------
 
@@ -79,7 +85,7 @@ int main()
                 .b = luminance,
                 .a = 255
             };
-            e2d_set_pixel(window, stars[i].x, stars[i].y, color);
+            e2d_texture_set_pixel(&texture, stars[i].x, stars[i].y, color);
 
         }
 
@@ -88,9 +94,9 @@ int main()
         // draw fps in upper left corner
         char fps_string[10] = {0};
         sprintf(fps_string, "FPS: %d", (int)fps);
-        e2d_draw_string(window, fps_string, 0, 0, E2D_GREEN);
+        e2d_texture_draw_string(&texture, fps_string, 0, 0, E2D_GREEN);
 
-        e2d_draw_framebuffer(window);
+        e2d_texture_draw_to_window(&texture, window);
     }
 
     e2d_destroy_window(window);

@@ -8,14 +8,14 @@
 
 typedef struct e2d_Window
 {
-    int client_width;
-    int client_height;
+    int width;
+    int height;
 
-    int resolution_width;
-    int resolution_height;
+    /* int resolution_width; */
+    /* int resolution_height; */
 
-    float resolution_scale_width;
-    float resolution_scale_height;
+    /* float resolution_scale_width; */
+    /* float resolution_scale_height; */
 
     int mouse_x;
     int mouse_y;
@@ -28,7 +28,7 @@ typedef struct e2d_Window
     bool key_pressed_state[E2D_KEY_COUNT];
     bool key_released_state[E2D_KEY_COUNT];
 
-    uint32_t* framebuffer;
+    // uint32_t* framebuffer;
 
     bool keep_running;
 

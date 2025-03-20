@@ -42,10 +42,17 @@ typedef union e2d_Color
     uint32_t hex;
 } e2d_Color;
 
+typedef struct e2d_Texture
+{
+    int width;
+    int height;
+    e2d_Color* pixels;
+} e2d_Texture;
+
 typedef enum e2d_MouseButton
 {
     E2D_LMB, E2D_RMB, E2D_MMB,
-    E2D_MOUSEBUTTON_COUNT
+    E2D_MOUSEBUTTON_COUNT ///< Used internally.
 } e2d_MouseButton;
 
 typedef enum e2d_Key
@@ -94,7 +101,7 @@ typedef enum e2d_Key
     E2D_KEY_END,      E2D_KEY_NUMLK,  E2D_KEY_LWIN,   E2D_KEY_RWIN,
     E2D_KEY_CAPSLOCK,
 
-    E2D_KEY_COUNT
+    E2D_KEY_COUNT ///< Used internally.
 } e2d_Key;
 
 void e2d_init();
@@ -107,8 +114,6 @@ bool e2d_should_window_close(e2d_Window* window);
 void e2d_handle_events();
 int e2d_get_mouse_x(e2d_Window* window);
 int e2d_get_mouse_y(e2d_Window* window);
-int e2d_get_mouse_x_in_framebuffer(e2d_Window* window);
-int e2d_get_mouse_y_in_framebuffer(e2d_Window* window);
 int e2d_get_mouse_wheel_delta(e2d_Window* window);
 bool e2d_is_mouse_down(e2d_Window* window, e2d_MouseButton mouse_button);
 bool e2d_is_mouse_pressed(e2d_Window* window, e2d_MouseButton mouse_button);
@@ -117,22 +122,20 @@ bool e2d_is_key_down(e2d_Window* window, e2d_Key key);
 bool e2d_is_key_pressed(e2d_Window* window, e2d_Key key);
 bool e2d_is_key_released(e2d_Window* window, e2d_Key key);
 
-void e2d_set_pixel(e2d_Window* window, int x, int y, e2d_Color color);
-void e2d_draw_line(e2d_Window* window, int x1, int y1, int x2, int y2, e2d_Color color);
-void e2d_draw_rect_lines(e2d_Window* window, int x, int y, int width, int height, e2d_Color color);
-void e2d_draw_rect_fill(e2d_Window* window, int x, int y, int width, int height, e2d_Color color);
-void e2d_draw_triangle_lines(e2d_Window* window, int x1, int y1, int x2, int y2, int x3, int y3, e2d_Color color);
-int e2d_get_framebuffer_length(e2d_Window* window);
-uint32_t* e2d_get_framebuffer_reference(e2d_Window* window);
-void e2d_clear_framebuffer(e2d_Window* window, e2d_Color color);
-void e2d_draw_framebuffer(e2d_Window* window);
+void e2d_texture_set_pixel(e2d_Texture* texture, int x, int y, e2d_Color color);
+void e2d_texture_draw_line(e2d_Texture* texture, int x1, int y1, int x2, int y2, e2d_Color color);
+void e2d_texture_draw_rect_lines(e2d_Texture* texture, int x, int y, int width, int height, e2d_Color color);
+void e2d_texture_draw_rect_fill(e2d_Texture* texture, int x, int y, int width, int height, e2d_Color color);
+void e2d_texture_draw_triangle_lines(e2d_Texture* texture, int x1, int y1, int x2, int y2, int x3, int y3, e2d_Color color);
+void e2d_texture_clear(e2d_Texture* texture, e2d_Color color);
+void e2d_texture_draw_to_window(e2d_Texture* texture, e2d_Window* window);
 
-void e2d_draw_char(e2d_Window* window, char c, int x, int y, e2d_Color color);
-void e2d_draw_string(e2d_Window* window, const char* s, int x, int y, e2d_Color color);
+void e2d_texture_draw_char(e2d_Texture* texture, char c, int x, int y, e2d_Color color);
+void e2d_texture_draw_string(e2d_Texture* texture, const char* s, int x, int y, e2d_Color color);
 
 e2d_Image* e2d_load_image(const char* path, e2d_ImageFormat image_format);
 void e2d_destroy_image(e2d_Image* image);
-void e2d_draw_image(e2d_Window* window, e2d_Image* image, int x, int y);
+// void e2d_draw_image(e2d_Window* window, e2d_Image* image, int x, int y);
 
 void e2d_update_time();
 double e2d_get_time();
