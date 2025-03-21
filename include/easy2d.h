@@ -1,3 +1,56 @@
+///
+/// @brief Easy2D - Quick and Easy 2D Graphics
+///
+/// Easy2D is a lightweight and easy-to-use 2D graphics library for creating simple
+/// graphical applications.
+/// It provides a straightforward API for window management, input handling, texture
+/// manipulation, and basic drawing.
+///
+/// Basic usage:
+/// @code
+/// #include "easy2d.h"
+///
+/// int main()
+/// {
+///     const int WIDTH = 640;
+///     const int HEIGHT = 480;
+///
+///     // initialize internal E2D systems
+///     e2d_init();
+///
+///     // create window
+///     e2d_Window* window = e2d_create_window(WIDTH, HEIGHT, "Hello, Easy2D Window!");
+///     e2d_set_target_framerate(60);
+///
+///     // framebuffer to draw to
+///     e2d_Texture framebuffer = {
+///         .width = WIDTH,
+///         .height = HEIGHT,
+///         .pixels = malloc(sizeof(e2d_Color) * WIDTH * HEIGHT)
+///     }
+///
+///     // main render loop
+///     while (!e2d_should_window_close(window))
+///     {
+///         e2d_handle_events();
+///         e2d_update_time();
+///
+///         // clear the framebuffer
+///         e2d_texture_clear(&texture, E2D_BLACK);
+///
+///         // draw stuff to framebuffer
+///         e2d_texture_draw_string(&texture, "Hello from Easy2D!", 100, 100, E2D_WHITE);
+///
+///         // display framebuffer on window
+///         e2d_texture_draw_to_window(&texture, window);
+///     }
+///
+///    e2d_destroy_window(window);
+///    e2d_close();
+/// }
+/// @endcode
+///
+
 #ifndef EASY2D_H
 #define EASY2D_H
 
@@ -19,22 +72,40 @@
 #define E2D_MAGENTA   ((e2d_Color){ .r = 255, .g =    0, .b = 255, .a = 255})
 #define E2D_PINK      ((e2d_Color){ .r = 255, .g =    0, .b = 127, .a = 255})
 
+///
+/// @brief Opaque window struct.
+///
 typedef struct e2d_Window e2d_Window;
-typedef struct e2d_Texture e2d_Texture;
 
+///
+/// @brief Contains the RGBA components of a color
+///
 typedef union e2d_Color
 {
     struct
     {
-        uint8_t b;
-        uint8_t g;
-        uint8_t r;
-        uint8_t a;
+        uint8_t b; ///< Blue component of the pixel
+        uint8_t g; ///< Green component of the pixel
+        uint8_t r; ///< Red component of the pixel
+        uint8_t a; ///< Alpha component of the pixel
     };
 
-    uint32_t hex;
+    uint32_t hex;  ///< The RGBA components aggregated into a single `uint32_t`
 } e2d_Color;
 
+///
+/// @brief Contains information about a texture
+///
+typedef struct e2d_Texture
+{
+    int width;         ///< Width of the texture in pixels
+    int height;        ///< Height of the texture in pixels
+    e2d_Color* pixels; ///< Array of {@link e2d_Color}s
+} e2d_Texture;
+
+///
+/// @brief The different recognized mouse buttons
+///
 typedef enum e2d_MouseButton
 {
     E2D_LMB, E2D_RMB, E2D_MMB,
@@ -90,7 +161,19 @@ typedef enum e2d_Key
     E2D_KEY_COUNT ///< Used internally.
 } e2d_Key;
 
+///
+/// @brief Initializes internal E2D systems
+///
+/// This function must be called before any other E2D function. Failure to do so may
+/// invoke undefined behavior.
+///
 void e2d_init();
+
+///
+/// @brief Deinitializes and frees internal E2D systems
+///
+/// Call this function once done with E2D.
+///
 void e2d_close();
 e2d_Window* e2d_create_window(int client_width, int client_height, int resolution_width, int resolution_height, const char* title);
 void e2d_set_window_title(e2d_Window* window, const char* title);

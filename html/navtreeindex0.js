@@ -1,0 +1,22 @@
+var NAVTREEINDEX0 =
+{
+"annotated.html":[0,0],
+"classes.html":[0,1],
+"dir_d44c64559bbebec7f509842c48db8b23.html":[1,0,0],
+"easy2d_8h_source.html":[1,0,0,0],
+"files.html":[1,0],
+"functions.html":[0,2,0],
+"functions_vars.html":[0,2,1],
+"index.html":[],
+"pages.html":[],
+"structe2d___texture.html":[0,0,1],
+"structe2d___texture.html#a2b411473f59a01714d66094759b95462":[0,0,1,0],
+"structe2d___texture.html#a4f6a709c721674daaa1ef0820570d17f":[0,0,1,2],
+"structe2d___texture.html#a83623326257672256ada916c6a1a9e5f":[0,0,1,1],
+"unione2d___color.html":[0,0,0],
+"unione2d___color.html#a56d4cd94106cd404a5a680ae8cc00d99":[0,0,0,0],
+"unione2d___color.html#aa962dbfc1d84148ad70cb8e62fdf4f97":[0,0,0,1],
+"unione2d___color.html#aaf1c36c5e2a09bf594127c480dbf503e":[0,0,0,4],
+"unione2d___color.html#ab2656d22137660d9abc87a6967b7d2fd":[0,0,0,3],
+"unione2d___color.html#afcef2f440d2bd9c6412c6eaf3a8a218e":[0,0,0,2]
+};
