@@ -20,14 +20,7 @@
 #define E2D_PINK      ((e2d_Color){ .r = 255, .g =    0, .b = 127, .a = 255})
 
 typedef struct e2d_Window e2d_Window;
-typedef struct e2d_Image e2d_Image;
-
-typedef enum e2d_ImageFormat
-{
-    E2D_BMP,
-    E2D_JPEG,
-    E2D_PNG,
-} e2d_ImageFormat;
+typedef struct e2d_Texture e2d_Texture;
 
 typedef union e2d_Color
 {
@@ -41,13 +34,6 @@ typedef union e2d_Color
 
     uint32_t hex;
 } e2d_Color;
-
-typedef struct e2d_Texture
-{
-    int width;
-    int height;
-    e2d_Color* pixels;
-} e2d_Texture;
 
 typedef enum e2d_MouseButton
 {
@@ -133,9 +119,9 @@ void e2d_texture_draw_to_window(e2d_Texture* texture, e2d_Window* window);
 void e2d_texture_draw_char(e2d_Texture* texture, char c, int x, int y, e2d_Color color);
 void e2d_texture_draw_string(e2d_Texture* texture, const char* s, int x, int y, e2d_Color color);
 
-e2d_Image* e2d_load_image(const char* path, e2d_ImageFormat image_format);
-void e2d_destroy_image(e2d_Image* image);
-// void e2d_draw_image(e2d_Window* window, e2d_Image* image, int x, int y);
+e2d_Texture* e2d_texture_load(const char* path);
+void e2d_texture_destroy(e2d_Texture* texture);
+void e2d_texture_copy_to_texture(e2d_Texture* source_texture, int source_x, int source_y, int source_width, int source_height, e2d_Texture* destination_texture, int destination_x, int destination_y, int destination_width, int destination_height);
 
 void e2d_update_time();
 double e2d_get_time();
