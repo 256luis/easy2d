@@ -25,20 +25,13 @@ void e2d_close()
     timeEndPeriod(1);
 }
 
-e2d_Window* e2d_create_window(int client_width, int client_height, int resolution_width, int resolution_height, const char* title)
+e2d_Window* e2d_create_window(int width, int height, const char* title)
 {
     // create the e2d_window
     e2d_Window* window = calloc(1, sizeof(e2d_Window));
     window->keep_running = true;
-    window->width = client_width;
-    window->height = client_height;
-    /* window->resolution_width = resolution_width; */
-    /* window->resolution_height = resolution_height; */
-    /* window->resolution_scale_width = (float)resolution_width / client_width; */
-    /* window->resolution_scale_height = (float)resolution_height / client_height; */
-
-    // allocate framebuffer
-    // window->framebuffer = malloc(resolution_width * resolution_height * sizeof(uint32_t));
+    window->width = width;
+    window->height = height;
 
     // create window class
     char window_class_name[5];
@@ -52,8 +45,8 @@ e2d_Window* e2d_create_window(int client_width, int client_height, int resolutio
 
     // get desired client rect
     RECT window_rect = {
-        .right = client_width,
-        .bottom = client_height
+        .right = width,
+        .bottom = height
     };
     AdjustWindowRect(&window_rect, WS_OVERLAPPEDWINDOW, false);
     int window_width = window_rect.right - window_rect.left;
@@ -77,8 +70,6 @@ e2d_Window* e2d_create_window(int client_width, int client_height, int resolutio
     // create bitmap info header to be put in window->bitmap_info
     BITMAPINFOHEADER bitmap_info_header = {
         .biSize = sizeof(BITMAPINFOHEADER),
-        .biWidth = resolution_width,
-        .biHeight = -resolution_height,
         .biPlanes = 1,
         .biBitCount = 32,
         .biCompression = BI_RGB
@@ -101,7 +92,6 @@ void e2d_set_window_title(e2d_Window* window, const char* title)
 void e2d_destroy_window(e2d_Window* window)
 {
     DestroyWindow(window->window_handle);
-    // free(window->framebuffer);
     free(window);
 }
 
