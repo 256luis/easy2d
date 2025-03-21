@@ -29,7 +29,7 @@ int main()
 {
     e2d_init();
 
-    e2d_Window* window = e2d_create_window(WINDOW_WIDTH, WINDOW_HEIGHT, WIDTH, HEIGHT, "WINDOW");
+    e2d_Window* window = e2d_create_window(WINDOW_WIDTH, WINDOW_HEIGHT, "WINDOW");
     e2d_set_target_framerate(TARGET_FPS);
 
     e2d_Texture texture = {
