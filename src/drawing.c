@@ -169,39 +169,6 @@ void e2d_texture_draw_triangle_lines(e2d_Texture* texture,
     e2d_texture_draw_line(texture, x3, y3, x1, y1, color);
 }
 
-/* void e2d_draw_image(e2d_Window* window, e2d_Image* image, int x, int y) */
-/* { */
-/*     for (int image_x = 0; image_x < image->width; image_x++) */
-/*     { */
-/*         for (int image_y = 0; image_y < image->height; image_y++) */
-/*         { */
-/*             int final_x = image_x + x; */
-/*             int final_y = image_y + y; */
-
-/*             /\* if (final_x < 0 || final_x >= window->resolution_width) return; *\/ */
-/*             /\* if (final_y < 0 || final_y >= window->resolution_height) return; *\/ */
-
-/*             e2d_Color color = { */
-/*                 .hex = image->pixels[image_x + (image_y * image->width)] */
-/*             }; */
-/*             window->framebuffer[final_x + (final_y * window->resolution_width)] = color.hex; */
-
-/*             // e2d_Color color = e2d_hex_to_color(hex); */
-/*             e2d_set_pixel(window, final_x, final_y, color); */
-/*         } */
-/*     } */
-/* } */
-
-/* int e2d_get_framebuffer_length(e2d_Window* window) */
-/* { */
-/*     return window->resolution_width * window->resolution_height; */
-/* } */
-
-/* uint32_t* e2d_get_framebuffer_reference(e2d_Window* window) */
-/* { */
-/*     return window->framebuffer; */
-/* } */
-
 void e2d_texture_clear(e2d_Texture* texture, e2d_Color color)
 {
     for (int i = 0; i < texture->width * texture->height; i++)
@@ -212,6 +179,9 @@ void e2d_texture_clear(e2d_Texture* texture, e2d_Color color)
 
 void e2d_texture_draw_to_window(e2d_Texture* texture, e2d_Window* window)
 {
+    window->bitmap_info.bmiHeader.biWidth = texture->width;
+    window->bitmap_info.bmiHeader.biHeight = -texture->height;
+
     StretchDIBits(
         window->device_context,     // hdc
         0, 0,                       // xDest, yDest

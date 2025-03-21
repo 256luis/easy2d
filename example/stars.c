@@ -29,7 +29,7 @@ int main()
 {
     e2d_init();
 
-    e2d_Window* window = e2d_create_window(WINDOW_WIDTH, WINDOW_HEIGHT, WIDTH, HEIGHT, "WINDOW");
+    e2d_Window* window = e2d_window_create(WINDOW_WIDTH, WINDOW_HEIGHT, "WINDOW");
     e2d_set_target_framerate(TARGET_FPS);
 
     e2d_Texture texture = {
@@ -55,7 +55,7 @@ int main()
 
     int star_speed = 25;
 
-    while (!e2d_should_window_close(window) && !e2d_is_key_pressed(window, E2D_KEY_ESC))
+    while (!e2d_window_should_close(window) && !e2d_is_key_pressed(window, E2D_KEY_ESC))
     {
         e2d_handle_events();
         e2d_update_time();
@@ -101,7 +101,7 @@ int main()
         e2d_texture_draw_to_window(&texture, window);
     }
 
-    e2d_destroy_window(window);
+    e2d_window_destroy(window);
     e2d_close();
 
     return 0;
