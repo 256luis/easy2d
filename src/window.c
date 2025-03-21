@@ -25,7 +25,7 @@ void e2d_close()
     timeEndPeriod(1);
 }
 
-e2d_Window* e2d_create_window(int width, int height, const char* title)
+e2d_Window* e2d_window_create(int width, int height, const char* title)
 {
     // create the e2d_window
     e2d_Window* window = calloc(1, sizeof(e2d_Window));
@@ -84,18 +84,18 @@ e2d_Window* e2d_create_window(int width, int height, const char* title)
     return window;
 }
 
-void e2d_set_window_title(e2d_Window* window, const char* title)
+void e2d_window_set_title(e2d_Window* window, const char* title)
 {
     SetWindowText(window->window_handle, title);
 }
 
-void e2d_destroy_window(e2d_Window* window)
+void e2d_window_destroy(e2d_Window* window)
 {
     DestroyWindow(window->window_handle);
     free(window);
 }
 
-bool e2d_should_window_close(e2d_Window* window)
+bool e2d_window_should_close(e2d_Window* window)
 {
     return !window->keep_running;
 }

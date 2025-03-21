@@ -118,8 +118,6 @@ var easy2d_8h =
       [ "E2D_MOUSEBUTTON_COUNT", "easy2d_8h.html#abd15dadc0a70d32f4ecce09f1a940bdcaf0f75024ff266e8865bbf539c9e15bfa", null ]
     ] ],
     [ "e2d_close", "easy2d_8h.html#ab23ce7256f29ffe6bc4e5cb37a2faac5", null ],
-    [ "e2d_create_window", "easy2d_8h.html#ab093f0a8334a7434b9ee1895511a5ee0", null ],
-    [ "e2d_destroy_window", "easy2d_8h.html#ae3f25ba98359b2aeb64c7ab097b727fe", null ],
     [ "e2d_get_delta_time", "easy2d_8h.html#adaf9b08773a8f209f3bd4825ba6db037", null ],
     [ "e2d_get_mouse_wheel_delta", "easy2d_8h.html#a68ff664782ae16a8fac9d12ec06edc56", null ],
     [ "e2d_get_mouse_x", "easy2d_8h.html#a197edc854d46d55d3583d1f88eb90590", null ],
@@ -134,8 +132,6 @@ var easy2d_8h =
     [ "e2d_is_mouse_pressed", "easy2d_8h.html#ac565b7ee635824a5880eb8eb96631ab4", null ],
     [ "e2d_is_mouse_released", "easy2d_8h.html#a305e03a20737eef3cfb60d9fa4b6d04d", null ],
     [ "e2d_set_target_framerate", "easy2d_8h.html#a380554c1e7d3a99e235be941b60dc6f8", null ],
-    [ "e2d_set_window_title", "easy2d_8h.html#a6b2c115684575a9c8dd17ac62839b815", null ],
-    [ "e2d_should_window_close", "easy2d_8h.html#a19db337b118b757698d1cacac7f58a80", null ],
     [ "e2d_texture_clear", "easy2d_8h.html#aa65fc5069aadb2fc9ecf485b6244b337", null ],
     [ "e2d_texture_copy_to_texture", "easy2d_8h.html#afef0723815d1d685c2d4ec28d88365e7", null ],
     [ "e2d_texture_destroy", "easy2d_8h.html#ae75a8c3f9e0ec35d38ecb04d58adebd8", null ],
@@ -148,5 +144,9 @@ var easy2d_8h =
     [ "e2d_texture_draw_triangle_lines", "easy2d_8h.html#a668a78cfac55b59c6860e580bace6854", null ],
     [ "e2d_texture_load", "easy2d_8h.html#a6c7229ac941dbc03967c3dd54893536f", null ],
     [ "e2d_texture_set_pixel", "easy2d_8h.html#a6e33554f6805ef29b36481ded9ddd13f", null ],
-    [ "e2d_update_time", "easy2d_8h.html#a38511c4ff920e190030fcd2c18c877ef", null ]
+    [ "e2d_update_time", "easy2d_8h.html#a38511c4ff920e190030fcd2c18c877ef", null ],
+    [ "e2d_window_create", "easy2d_8h.html#a976ff56677c67609a193249724da52ab", null ],
+    [ "e2d_window_destroy", "easy2d_8h.html#a446915395ac033b6bc8f250e552bcd18", null ],
+    [ "e2d_window_set_title", "easy2d_8h.html#a5c5eff4d198c8efcf3f637baeb40b391", null ],
+    [ "e2d_window_should_close", "easy2d_8h.html#aa989507893e9168e0064efd81984fcdc", null ]
 ];

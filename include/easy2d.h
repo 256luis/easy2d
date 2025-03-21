@@ -20,7 +20,7 @@
 ///     e2d_init();
 ///
 ///     // create window
-///     e2d_Window* window = e2d_create_window(WIDTH, HEIGHT, "Hello, Easy2D Window!");
+///     e2d_Window* window = e2d_window_create(WIDTH, HEIGHT, "Hello, Easy2D Window!");
 ///     e2d_set_target_framerate(60);
 ///
 ///     // framebuffer to draw to
@@ -31,22 +31,22 @@
 ///     }
 ///
 ///     // main loop
-///     while (!e2d_should_window_close(window))
+///     while (!e2d_window_should_close(window))
 ///     {
 ///         e2d_handle_events();
 ///         e2d_update_time();
 ///
 ///         // clear the framebuffer
-///         e2d_texture_clear(&texture, E2D_BLACK);
+///         e2d_texture_clear(&framebuffer, E2D_BLACK);
 ///
 ///         // draw stuff to framebuffer
-///         e2d_texture_draw_string(&texture, "Hello from Easy2D!", 100, 100, E2D_WHITE);
+///         e2d_texture_draw_string(&framebuffer, "Hello from Easy2D!", 100, 100, E2D_WHITE);
 ///
-///         // display framebuffer on window
-///         e2d_texture_draw_to_window(&texture, window);
+///         // display framebuffer to window
+///         e2d_texture_draw_to_window(&framebuffer, window);
 ///     }
 ///
-///    e2d_destroy_window(window);
+///    e2d_window_destroy(window);
 ///    e2d_close();
 /// }
 /// @endcode
@@ -196,7 +196,7 @@ void e2d_close();
 /// @param   title  The null-terminated string to be displayed at the title bar
 /// @returns        A pointer to the created {@link e2d_Window}
 ///
-e2d_Window* e2d_create_window(int width, int height, const char* title);
+e2d_Window* e2d_window_create(int width, int height, const char* title);
 
 ///
 /// Sets the window title to be displayed at the title bar
@@ -204,14 +204,14 @@ e2d_Window* e2d_create_window(int width, int height, const char* title);
 /// @param window A pointer to the {@link e2d_Window} whose title is to be modified.
 /// @param title  The null-terminated string to be displayed at the title bar.
 ///
-void e2d_set_window_title(e2d_Window* window, const char* title);
+void e2d_window_set_title(e2d_Window* window, const char* title);
 
 ///
 /// Destroys the e2d_Window
 ///
 /// @param window A pointer to the {@link e2d_Window} to destroy.
 ///
-void e2d_destroy_window(e2d_Window* window);
+void e2d_window_destroy(e2d_Window* window);
 
 ///
 /// Checks if a particular {@link e2d_Window} should be closed
@@ -219,7 +219,7 @@ void e2d_destroy_window(e2d_Window* window);
 /// @param window A pointer to the {@link e2d_Window} to check
 /// @returns      true if the window should close, otherwise false
 ///
-bool e2d_should_window_close(e2d_Window* window);
+bool e2d_window_should_close(e2d_Window* window);
 
 ///
 /// Handles mouse, keyboard, and windows events

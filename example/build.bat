@@ -16,7 +16,7 @@ if %errorlevel% == 0 (
 popd
 
 set CFLAGS=/O2 /I..\include /std:c17 /D_CRT_SECURE_NO_WARNINGS /Wall /wd4255
-set LFLAGS=/link /libpath:..\lib easy2d.lib user32.lib gdi32.lib winmm.lib 
+set LFLAGS=/link /libpath:..\lib easy2d.lib user32.lib gdi32.lib winmm.lib
 set SRC=%1
 
-call %CC% %1.c %CFLAGS% %LFLAGS% /out:stars.exe /nologo
+call %CC% %1.c %CFLAGS% %LFLAGS% /out:%1.exe /nologo
