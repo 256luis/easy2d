@@ -1,22 +1,15 @@
 @echo off
 
-set CC=cl
-set CFLAGS=/c /Fobuild\ /Fdbuild\ /Od /Zi /Iinclude /std:c17 /D_CRT_SECURE_NO_WARNINGS /W4 /wd4255 /wd5105 /we4133
-set SRC=%1
+pushd build
 
-if not defined SRC (
-    set SRC=*
-)
+clang -c %~dp0/src/*.c -I%~dp0/include -O3 -Wall -Wextra -Wpedantic -Wno-strict-prototypes -std=c17
 
-echo compiling with %CC%...
-call %CC% src/%SRC%.c %CFLAGS% /nologo
-echo done!
-echo -----------------------------
+popd
+
+pushd lib
 
 if %errorlevel% == 0 (
-    echo creating archive...
-    if not exist lib mkdir lib
-    call lib build\*.obj /out:lib/easy2d.lib /nologo
-    echo done!
-    echo -----------------------------
+   llvm-ar rcs %~dp0/lib/easy2d.lib %~dp0/build/*.o
 )
+
+popd
