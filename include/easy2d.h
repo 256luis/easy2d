@@ -1,56 +1,55 @@
-///
-/// @file easy2d.h
-/// @brief Easy2D - Quick and Easy 2D Graphics
-///
-/// Easy2D is a lightweight and easy-to-use 2D graphics library for creating simple
-/// graphical applications.
-/// It provides a straightforward API for window management, input handling, texture
-/// manipulation, and basic drawing.
-///
-/// Basic usage:
-/// @code
-/// #include "easy2d.h"
-///
-/// int main()
-/// {
-///     const int WIDTH = 640;
-///     const int HEIGHT = 480;
-///
-///     // initialize internal E2D systems
-///     e2d_init();
-///
-///     // create window
-///     e2d_Window* window = e2d_window_create(WIDTH, HEIGHT, "Hello, Easy2D Window!");
-///     e2d_set_target_framerate(60);
-///
-///     // framebuffer to draw to
-///     e2d_Texture framebuffer = {
-///         .width = WIDTH,
-///         .height = HEIGHT,
-///         .pixels = malloc(sizeof(e2d_Color) * WIDTH * HEIGHT)
-///     }
-///
-///     // main loop
-///     while (!e2d_window_should_close(window))
-///     {
-///         e2d_handle_events();
-///         e2d_update_time();
-///
-///         // clear the framebuffer
-///         e2d_texture_clear(&framebuffer, E2D_BLACK);
-///
-///         // draw stuff to framebuffer
-///         e2d_texture_draw_string(&framebuffer, "Hello from Easy2D!", 100, 100, E2D_WHITE);
-///
-///         // display framebuffer to window
-///         e2d_texture_draw_to_window(&framebuffer, window);
-///     }
-///
-///    e2d_window_destroy(window);
-///    e2d_close();
-/// }
-/// @endcode
-///
+/*
+  Easy2D is a lightweight and easy-to-use 2D graphics library for creating simple
+  graphical applications.
+  It provides a straightforward API for window management, input handling,
+  texture manipulation, and basic drawing.
+
+ Basic usage:
+ @code
+ #include "easy2d.h"
+
+ int main()
+ {
+     const int WIDTH = 640;
+     const int HEIGHT = 480;
+
+     // initialize internal E2D systems
+     e2d_init();
+
+     // create window
+     e2d_Window* window = e2d_window_create(WIDTH, HEIGHT, "Hello, Easy2D Window!");
+     e2d_set_target_framerate(60);
+
+     // framebuffer to draw to
+     e2d_Texture framebuffer = {
+         .width = WIDTH,
+         .height = HEIGHT,
+         .pixels = malloc(sizeof(e2d_Color) * WIDTH * HEIGHT)
+     }
+
+     // main loop
+     while (!e2d_window_should_close(window))
+     {
+         e2d_handle_events();
+         e2d_update_time();
+
+         // clear the framebuffer
+         e2d_texture_clear(&framebuffer, E2D_BLACK);
+
+         // draw stuff to framebuffer
+         e2d_texture_draw_string(&framebuffer, "Hello from Easy2D!", 100,
+100, E2D_WHITE);
+
+         // display framebuffer to window
+         e2d_texture_draw_to_window(&framebuffer, window);
+     }
+
+    e2d_window_destroy(window);
+    e2d_close();
+ }
+ @endcode
+
+*/
 
 #ifndef EASY2D_H
 #define EASY2D_H
