@@ -1,15 +1,19 @@
 @echo off
 
+if not exist build mkdir build
+
 pushd build
 
-clang -c %~dp0/src/*.c -I%~dp0/include -O3 -Wall -Wextra -Wpedantic -Wno-strict-prototypes -std=c17
+set CC=clang
+set CMAKEFLAGS=-DCMAKE_BUILD_TYPE=Debug ^
+               -DCMAKE_MSVC_RUNTIME_LIBRARY="MultiThreaded$<$<CONFIG:Debug>:Debug>" ^
+               -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
-popd
-
-pushd lib
-
-if %errorlevel% == 0 (
-   llvm-ar rcs %~dp0/lib/easy2d.lib %~dp0/build/*.o
+if not exist build.ninja (
+    cmake .. -G "Ninja" %CMAKEFLAGS%
+    move compile_commands.json ../
 )
+
+ninja
 
 popd

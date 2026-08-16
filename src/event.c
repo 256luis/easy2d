@@ -106,8 +106,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_SIZE: {
             window->width = LOWORD(lParam);
             window->height = HIWORD(lParam);
-            /* window->resolution_scale_width = (float)window->resolution_width / window->client_width; */
-            /* window->resolution_scale_height = (float)window->resolution_height / window->client_height; */
         } break;
 
         case WM_MOUSEMOVE: {

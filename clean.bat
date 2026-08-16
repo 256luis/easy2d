@@ -1,10 +1,7 @@
 @echo off
 
-echo cleaning...
-del /q build\*
-del /q lib\*
-del /q *.exe
-del /q *.ilk
-del /q *.obj
-del /q *.pdb
-echo done!
+rmdir build /q /s
+mkdir build
+
+rmdir lib /q /s
+mkdir lib

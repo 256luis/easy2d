@@ -49,12 +49,16 @@ void e2d_texture_copy_to_texture(e2d_Texture* source_texture,
                                  int destination_x, int destination_y,
                                  int destination_width, int destination_height)
 {
-    for (int x = 0; x < source_width; x++)
+    float width_ratio = (float)source_width / destination_width;
+    float height_ratio = (float)source_height / destination_height;
+
+    for (int x = 0; x < destination_width; x++)
     {
-        for (int y = 0; y < source_height; y++)
+        for (int y = 0; y < destination_height; y++)
         {
-            int sampled_x = (x + source_x) % source_texture->width;
-            int sampled_y = (y + source_y) % source_texture->height;
+            int sampled_x = (int)((x + source_x) * width_ratio) % source_texture->width;
+            int sampled_y = (int)((y + source_y) * height_ratio) % source_texture->height;
+
             e2d_Color sampled_color = source_texture->pixels[sampled_x + (sampled_y * source_texture->width)];
             e2d_texture_set_pixel(destination_texture, destination_x + x, destination_y + y, sampled_color);
         }

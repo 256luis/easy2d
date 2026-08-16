@@ -159,10 +159,10 @@ void e2d_texture_draw_rect_fill(e2d_Texture* texture, int x, int y, int width, i
 }
 
 void e2d_texture_draw_triangle_lines(e2d_Texture* texture,
-                             int x1, int y1,
-                             int x2, int y2,
-                             int x3, int y3,
-                             e2d_Color color)
+                                     int x1, int y1,
+                                     int x2, int y2,
+                                     int x3, int y3,
+                                     e2d_Color color)
 {
     e2d_texture_draw_line(texture, x1, y1, x2, y2, color);
     e2d_texture_draw_line(texture, x2, y2, x3, y3, color);
@@ -183,16 +183,16 @@ void e2d_texture_draw_to_window(e2d_Texture* texture, e2d_Window* window)
     window->bitmap_info.bmiHeader.biHeight = -texture->height;
 
     StretchDIBits(
-        window->device_context,     // hdc
-        0, 0,                       // xDest, yDest
-        window->width,       // DestWidth
-        window->height,      // DestWidth
-        0, 0,                       // xSrc, ySrc
-        texture->width,   // SrcWidth
-        texture->height,  // SrcHeight
-        texture->pixels,                // lpBits
-        &window->bitmap_info,       // lpBmi
-        DIB_RGB_COLORS,             // iUsage
+        window->device_context, // hdc
+        0, 0,                   // xDest, yDest
+        window->width,          // DestWidth
+        window->height,         // DestWidth
+        0, 0,                   // xSrc, ySrc
+        texture->width,         // SrcWidth
+        texture->height,        // SrcHeight
+        &texture->pixels->hex,  // lpBits
+        &window->bitmap_info,   // lpBmi
+        DIB_RGB_COLORS,         // iUsage
         SRCCOPY
     );
 }

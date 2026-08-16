@@ -37,8 +37,7 @@
          e2d_texture_clear(&framebuffer, E2D_BLACK);
 
          // draw stuff to framebuffer
-         e2d_texture_draw_string(&framebuffer, "Hello from Easy2D!", 100,
-100, E2D_WHITE);
+         e2d_texture_draw_string(&framebuffer, "Hello from Easy2D!", 100, 100, E2D_WHITE);
 
          // display framebuffer to window
          e2d_texture_draw_to_window(&framebuffer, window);

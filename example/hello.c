@@ -1,5 +1,7 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "easy2d.h"
+#include <threads.h>
 
 int main()
 {
@@ -20,6 +22,9 @@ int main()
         .pixels = malloc(sizeof(e2d_Color) * WIDTH * HEIGHT)
     };
 
+    e2d_Texture* image = e2d_texture_load("image.png");
+    // printf("%p\n", image);
+
     // main loop
     while (!e2d_window_should_close(window))
     {
@@ -31,6 +36,19 @@ int main()
 
         // draw stuff to framebufer
         e2d_texture_draw_string(&framebuffer, "Hello from Easy2D!", 100, 100, E2D_WHITE);
+        e2d_texture_copy_to_texture(image,
+                                    0, 0,
+                                    image->width, image->height,
+                                    &framebuffer,
+                                    0, 0,
+                                    image->width * 10, image->height * 15);
+
+        e2d_texture_copy_to_texture(image,
+                                    0, 0,
+                                    image->width, image->height,
+                                    &framebuffer,
+                                    100, 100,
+                                    image->width , image->height);
 
         // display framebuffer to window
         e2d_texture_draw_to_window(&framebuffer, window);

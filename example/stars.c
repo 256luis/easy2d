@@ -33,12 +33,12 @@ int main()
     e2d_set_target_framerate(TARGET_FPS);
 
     e2d_Texture texture = {
-        .width = WIDTH,
-        .height = HEIGHT,
+        .width = WIDTH / 2,
+        .height = HEIGHT / 2,
         .pixels = malloc(sizeof(e2d_Color) * WIDTH * HEIGHT)
     };
 
-    e2d_Texture* sprite = e2d_texture_load("image.png");
+    // e2d_Texture* sprite = e2d_texture_load("image.png");
 
     // Star stars[STAR_COUNT];
     Star* stars = malloc(STAR_COUNT * sizeof(Star));
