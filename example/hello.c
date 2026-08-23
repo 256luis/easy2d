@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "easy2d.h"
-#include <threads.h>
 
 int main()
 {
